@@ -7,8 +7,6 @@ using InfimaGames.LowPolyShooterPack;
 
 public class ClientWeaponController : MonoBehaviour
 {
-
-
     //Get the fps controller script to set the current weapon transform.
     [SerializeField]
     private GameObject InvObject; 
@@ -19,6 +17,9 @@ public class ClientWeaponController : MonoBehaviour
     public GameObject hotbarUI;
     GameObject gunDrop;
     bool isOnPrimary;
+    
+    GameObject PopupText;
+    public GameObject interactTrigger;
 
     void SetLayerRecursively(GameObject obj, int newLayer)
     {
@@ -28,6 +29,12 @@ public class ClientWeaponController : MonoBehaviour
         {
             SetLayerRecursively(child.gameObject, newLayer);
         }
+    }
+
+    // Sets the popup text for the Client
+    public void SetPopupText(string str)
+    {
+        PopupText.GetComponent<TextMeshProUGUI>().text = str;
     }
 
     public void SetHotbar(int hotbarIndex, string itemName, bool isWeapon) {
@@ -90,6 +97,46 @@ public class ClientWeaponController : MonoBehaviour
         }
     }
 
+    void Equip(string type, GameObject equippingGun)
+    {
+        int gunId = 0;
+
+        equippingGun.tag = "Untagged";
+                    
+        equippingGun.transform.parent = InvObject.transform;
+        equippingGun.transform.localPosition = new Vector3();
+        equippingGun.transform.localRotation = Quaternion.identity;
+        SetLayerRecursively(equippingGun, 9);
+
+        if (type == "Primary")
+        {
+            gunId = 0;
+            primary = equippingGun;
+        } 
+        else if (type == "Secondary")
+        {
+            gunId = 1;
+            secondary = equippingGun;
+        }
+
+        primary.transform.SetSiblingIndex(0);
+        secondary.transform.SetSiblingIndex(1);
+        
+        if (gunId == 0)
+            SetHotbar(1, primary.name, true);
+        else
+            SetHotbar(2, secondary.name, true);
+
+        InvObject.GetComponent<Inventory>().Init(-1);
+
+        StartCoroutine(GetComponent<Character>().Equip(gunId));
+
+        if (gunId == 0)
+            primary.SetActive(true);
+        else
+            secondary.SetActive(true);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -99,12 +146,13 @@ public class ClientWeaponController : MonoBehaviour
         SetHotbar(2, secondary.name, true);
         //switch to primary weapon by default
         SwitchWeapons(true);
+
+        PopupText = hotbarUI.transform.parent.Find("EquipText").gameObject;
     }
 
     // Update is called once per frame
     void Update()
     {
-
         Transform closestWeaponDrop = null;
 
         foreach (GameObject weaponDrop in GameObject.FindGameObjectsWithTag("WeaponDrops")) {
@@ -113,16 +161,17 @@ public class ClientWeaponController : MonoBehaviour
             }
         }
 
-        GameObject equipWeaponText = hotbarUI.transform.parent.Find("EquipText").gameObject;
-
-        if (closestWeaponDrop && (Vector3.Distance(closestWeaponDrop.position, transform.position) < 1f))
+        if (interactTrigger == null)
         {
-            gunDrop = closestWeaponDrop.gameObject;
-            equipWeaponText.GetComponent<TextMeshProUGUI>().text = "V - Equip " + closestWeaponDrop.name;
-        }
-        else {
-            gunDrop = null;
-            equipWeaponText.GetComponent<TextMeshProUGUI>().text = "";
+            if (closestWeaponDrop && (Vector3.Distance(closestWeaponDrop.position, transform.position) < 1f))
+            {
+                gunDrop = closestWeaponDrop.gameObject;
+                SetPopupText("V - Equip " + closestWeaponDrop.name);
+            }
+            else {
+                gunDrop = null;
+                SetPopupText("");
+            }
         }
 
         //Keybinds for switching weapons
@@ -136,56 +185,24 @@ public class ClientWeaponController : MonoBehaviour
 
         //Equipping weapon drop
         if (Input.GetKeyDown(KeyCode.V)) {
-            if (gunDrop) {
+            if (interactTrigger) {
+                interactTrigger.GetComponent<TriggerEventHandler>().Activate();
+                interactTrigger = null;
+            } else if (gunDrop) {
                 GameObject equippingGun = gunDrop;
+
                 equippingGun.SetActive(false);
+
                 Destroy(equippingGun.GetComponent<HoverEffect>());
                 Destroy(equippingGun.GetComponent<ParticleSystem>());
+
                 if (isOnPrimary)
                 {
-                    equippingGun.tag = "Untagged";
-                    
-                    equippingGun.transform.parent = InvObject.transform;
-                    equippingGun.transform.localPosition = new Vector3();
-                    equippingGun.transform.localRotation = Quaternion.identity;
-                    SetLayerRecursively(equippingGun, 9);
-                    primary = equippingGun;
-
-                    primary.transform.SetSiblingIndex(0);
-                    secondary.transform.SetSiblingIndex(1);
-
-                    SetHotbar(1, primary.name, true);
-
-                    InvObject.GetComponent<Inventory>().Init(-1);
-
-                    StartCoroutine(GetComponent<Character>().Equip(0));
-
-                    primary.SetActive(true);
+                    Equip("Primary", equippingGun);
                 }
                 else {
-                    equippingGun.tag = "Untagged";
-                    equippingGun.transform.parent = InvObject.transform;
-                    equippingGun.transform.localPosition = new Vector3();
-                    equippingGun.transform.localRotation = Quaternion.identity;
-                    SetLayerRecursively(equippingGun, 9);
-                    secondary = equippingGun;
-
-                    primary.transform.SetSiblingIndex(0);
-                    secondary.transform.SetSiblingIndex(1);
-
-                    SetHotbar(2, secondary.name, true);
-
-                    InvObject.GetComponent<Inventory>().Init(-1);
-
-                    StartCoroutine(GetComponent<Character>().Equip(1));
-
-                    secondary.SetActive(true);
-
+                    Equip("Secondary", equippingGun);
                 }
-
-                
-
-                
             }
         }
     }

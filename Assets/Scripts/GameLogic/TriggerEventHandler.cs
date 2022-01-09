@@ -5,9 +5,19 @@ using UnityEngine;
 
 public class TriggerEventHandler : MonoBehaviour
 {    
-    [SerializeField] string TriggerName;
-    [SerializeField] string TargetTag;
-    [SerializeField] bool OneTime;
+    [SerializeField] 
+    public string TriggerName;
+    [SerializeField] 
+    private bool OneTime;
+    [SerializeField] 
+    public int TriggerLevel;
+
+    private string TargetTag = "Player";
+    
+    [SerializeField] 
+    public bool IsPopup;
+    [SerializeField] 
+    public string PopupText;
 
     GameManager gm;
 
@@ -16,14 +26,38 @@ public class TriggerEventHandler : MonoBehaviour
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
-    private void OnTriggerEnter(Collider collider)
+    public void Activate()
+    {
+        gm.InvokeTriggerEvent(TriggerName);
+
+        if (OneTime)
+            GetComponent<BoxCollider>().enabled = false;
+    }
+
+    void OnTriggerEnter(Collider collider)
     {
         if (collider.tag == TargetTag)
         {
-            gm.InvokeTriggerEvent(TriggerName);
+            if (!IsPopup)
+            {
+                Activate();
+            } else {
+                ClientWeaponController client   = collider.gameObject.GetComponent<ClientWeaponController>();
+                client.interactTrigger          = gameObject;
+                client.SetPopupText(PopupText);
+            }
+        }
+    }
 
-            if (OneTime)
-                Destroy(gameObject);
+    void OnTriggerExit(Collider collider)
+    {
+        print(collider);
+
+        if (collider.tag == TargetTag && IsPopup)
+        {
+            ClientWeaponController client   = collider.GetComponent<ClientWeaponController>();
+            client.interactTrigger          = null;
+            client.SetPopupText("");
         }
     }
 }

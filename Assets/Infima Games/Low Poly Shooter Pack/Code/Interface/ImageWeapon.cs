@@ -57,6 +57,9 @@ namespace InfimaGames.LowPolyShooterPack.Interface
 
         protected override void Tick()
         {
+            if (equippedWeapon == null)
+                return;
+
             //Get Attachment Manager.
             attachmentManagerBehaviour = equippedWeapon.GetAttachmentManager();
             //Update the weapon's body sprite!
