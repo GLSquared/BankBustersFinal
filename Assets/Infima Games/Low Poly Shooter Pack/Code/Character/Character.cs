@@ -757,10 +757,10 @@ namespace InfimaGames.LowPolyShooterPack
 		/// <summary>
 		/// Equip Weapon Coroutine.
 		/// </summary>
-		private IEnumerator Equip(int index = 0)
+		public IEnumerator Equip(int index = 0)
 		{
 			//Only if we're not holstered, holster. If we are already, we don't need to wait.
-			if(!holstered)
+			if (!holstered)
 			{
 				//Holster.
 				SetHolstered(holstering = true);
@@ -771,7 +771,7 @@ namespace InfimaGames.LowPolyShooterPack
 			SetHolstered(false);
 			//Play Unholster Animation.
 			characterAnimator.Play("Unholster", layerHolster, 0);
-			
+
 			//Equip The New Weapon.
 			inventory.Equip(index);
 			//Refresh.
