@@ -24,6 +24,8 @@ public class Policeman : MonoBehaviour
     // Animations values
     private bool _crouching = false;
     private bool _targetting = false;
+    private bool _shooting = false;
+    private bool reloading = false;
     private float _walkspeed = 0;
 
     // Weapon
@@ -32,8 +34,14 @@ public class Policeman : MonoBehaviour
 
     [SerializeField]
     private Transform Muzzle;
-    private int currentAmmo = 31;
-    private int TotalAmmo = 31;
+
+    [SerializeField]
+    private GameObject bulletPrefab;
+
+    private float waitTime = 0;
+
+    private int currentAmmo = 5;
+    private int TotalAmmo = 5;
 
     bool enableGizmos = false;
 
@@ -68,28 +76,69 @@ public class Policeman : MonoBehaviour
     {
         enemy.LogicUpdate();
 
+        if (_shooting)
+        {
+            Shooting();
+        }
+
         Animate();
     }
 
     private void Animate()
     {
         // Set the bools
-        _targetting = (enemy.currentState==Enemy.State.Following)?true:false;
+        _targetting = (enemy.currentState==Enemy.State.Following || enemy.currentState == Enemy.State.Attacking) ?true:false;
         _crouching  = enemy.isCrouching();
         _walkspeed  = enemy.currentWalkSpeed;
+        _shooting   = enemy.isShooting();
 
         // Set the values
         animator.SetBool("Targetting", _targetting);
         animator.SetFloat("Walkspeed", _walkspeed);
         animator.SetBool("Crouching", _crouching);
         animator.SetInteger("Magazine", currentAmmo);
+        animator.SetBool("Shoot", _shooting);
+        animator.SetBool("Reload", reloading);
+        animator.SetInteger("Magezine", currentAmmo);
     }
 
-    private void Reload()
+    private IEnumerator Reload()
     {
         // TODO: Player Animation
         // Load the mag
+        _shooting = false;
+        reloading = true;
+        yield return new WaitForSeconds(3.3f);
         currentAmmo = TotalAmmo;
+        reloading = false;
+    }
+
+    private void Shooting()
+    {
+        if (currentAmmo == 0)
+        {
+            
+            StartCoroutine("Reload");
+            
+        }
+        else
+        {
+            if (waitTime < 0)
+            {
+                GameObject bullet1 = Instantiate(bulletPrefab, Muzzle.transform.position - new Vector3(0, 0.08f, 0), Quaternion.identity);
+                Rigidbody rb1 = bullet1.GetComponent<Rigidbody>();
+                rb1.AddForce(transform.forward * 50f, ForceMode.Impulse);
+
+                currentAmmo--;
+
+                waitTime = 0.7f;
+            }
+            else
+            {
+                waitTime -= Time.deltaTime;
+            }
+        }
+        
     }
 
     /// <summary>
