@@ -106,7 +106,7 @@ public class ClientController : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.tag.Equals("Collectible")) {
+        if (collision.gameObject.tag.Equals("Collectible")) {
 
             //add item to inventory
             if (invItems.Count < 3) {

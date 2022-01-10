@@ -2311,7 +2311,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8618903642152217396}
-  m_LocalRotation: {x: -0.0000038483004, y: 1.6994712e-13, z: -0.000000044264834, w: 1}
+  m_LocalRotation: {x: -0.0000038483004, y: 1.6994712e-13, z: -0.000000044264834,
+    w: 1}
   m_LocalPosition: {x: -1.5047499e-16, y: -0.000000010728836, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2487,14 +2488,17 @@ MonoBehaviour:
       rotation:
         horizontal: {x: 0, y: 0, z: 0}
         vertical: {x: 0, y: 0, z: 0}
-  prefabCasing: {fileID: 1492315059354262, guid: c638dfae3f3edf843b2614dae230a771, type: 3}
-  prefabProjectile: {fileID: 1086664671600574, guid: 5953171a59c27394e9ad5cbb564affa8, type: 3}
+  prefabCasing: {fileID: 1492315059354262, guid: c638dfae3f3edf843b2614dae230a771,
+    type: 3}
+  prefabProjectile: {fileID: 1086664671600574, guid: 5953171a59c27394e9ad5cbb564affa8,
+    type: 3}
   controller: {fileID: 22100000, guid: 721c041fc33a0bc4fa626ec5c5ffd1ca, type: 2}
   spriteBody: {fileID: 21300000, guid: 3ac6bd3c94406ee4b93468601b767738, type: 3}
   audioClipHolster: {fileID: 8300000, guid: 8c4ede782a70c6e4b9e515d40d6e6e69, type: 3}
   audioClipUnholster: {fileID: 8300000, guid: 4aaa78b2722c0344cb0363a3980adf64, type: 3}
   audioClipReload: {fileID: 8300000, guid: a83b772961497b2499aec1799fc7cd58, type: 3}
-  audioClipReloadEmpty: {fileID: 8300000, guid: 64cafb0bf2d48704395fa43d871bd4e9, type: 3}
+  audioClipReloadEmpty: {fileID: 8300000, guid: 64cafb0bf2d48704395fa43d871bd4e9,
+    type: 3}
   audioClipReloadOpen: {fileID: 0}
   audioClipReloadInsert: {fileID: 0}
   audioClipReloadClose: {fileID: 0}
@@ -2753,9 +2757,11 @@ MonoBehaviour:
   socket: {fileID: 8618903643789685888}
   sprite: {fileID: 0}
   audioClipFire: {fileID: 8300000, guid: 9e9480b4d07646942b555fd43f2a0f71, type: 3}
-  prefabFlashParticles: {fileID: 4834526503407549940, guid: 2735bebe54c1f5a4096f5134a96f7e77, type: 3}
+  prefabFlashParticles: {fileID: 4834526503407549940, guid: 2735bebe54c1f5a4096f5134a96f7e77,
+    type: 3}
   flashParticlesCount: 5
-  prefabFlashLight: {fileID: 4171051858075953094, guid: 25a6bd588ee932f4f8be552fd0fae250, type: 3}
+  prefabFlashLight: {fileID: 4171051858075953094, guid: 25a6bd588ee932f4f8be552fd0fae250,
+    type: 3}
   flashLightDuration: 0
   flashLightOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &8618903642216971035
@@ -3383,9 +3389,11 @@ MonoBehaviour:
   socket: {fileID: 8618903642967264375}
   sprite: {fileID: 0}
   audioClipFire: {fileID: 8300000, guid: 0addcc409a57b4a43b86a3d2310ac5b4, type: 3}
-  prefabFlashParticles: {fileID: 4834526503407549940, guid: 2735bebe54c1f5a4096f5134a96f7e77, type: 3}
+  prefabFlashParticles: {fileID: 4834526503407549940, guid: 2735bebe54c1f5a4096f5134a96f7e77,
+    type: 3}
   flashParticlesCount: 5
-  prefabFlashLight: {fileID: 4171051858075953094, guid: 25a6bd588ee932f4f8be552fd0fae250, type: 3}
+  prefabFlashLight: {fileID: 4171051858075953094, guid: 25a6bd588ee932f4f8be552fd0fae250,
+    type: 3}
   flashLightDuration: 0
   flashLightOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &8618903642375736719
@@ -3616,7 +3624,8 @@ MonoBehaviour:
   socket: {fileID: 8618903642988829347}
   sprite: {fileID: 21300000, guid: e1013a92f0437674789a7bde3b496399, type: 3}
   audioClipFire: {fileID: 8300000, guid: c1bd91cf7c20534478c9b9c5d69d1732, type: 3}
-  prefabFlashParticles: {fileID: 6630366363211497712, guid: e1d2196309ba6554ca2be7c5902e4afa, type: 3}
+  prefabFlashParticles: {fileID: 6630366363211497712, guid: e1d2196309ba6554ca2be7c5902e4afa,
+    type: 3}
   flashParticlesCount: 5
   prefabFlashLight: {fileID: 0}
   flashLightDuration: 0
@@ -3934,7 +3943,8 @@ MonoBehaviour:
   socket: {fileID: 8618903642271450648}
   sprite: {fileID: 21300000, guid: 46df06404a824174a8fca939f0269977, type: 3}
   audioClipFire: {fileID: 8300000, guid: c1bd91cf7c20534478c9b9c5d69d1732, type: 3}
-  prefabFlashParticles: {fileID: 6630366363211497712, guid: e1d2196309ba6554ca2be7c5902e4afa, type: 3}
+  prefabFlashParticles: {fileID: 6630366363211497712, guid: e1d2196309ba6554ca2be7c5902e4afa,
+    type: 3}
   flashParticlesCount: 5
   prefabFlashLight: {fileID: 0}
   flashLightDuration: 0
@@ -4650,7 +4660,6 @@ GameObject:
   - component: {fileID: 8618903642605061496}
   - component: {fileID: 8618903642605061499}
   - component: {fileID: 8618903642605061498}
-  - component: {fileID: 8618903642605061501}
   - component: {fileID: 8618903642605061500}
   m_Layer: 10
   m_Name: Player
@@ -4713,7 +4722,8 @@ AudioSource:
   m_GameObject: {fileID: 8618903642605061503}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 24300002, guid: 3fcdb23bde063e94fa0b60ccf87604d6, type: 2}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 3fcdb23bde063e94fa0b60ccf87604d6,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 0.8
@@ -4838,7 +4848,8 @@ MonoBehaviour:
   grenadesUnlimited: 0
   grenadeTotal: 10
   grenadeSpawnOffset: 1
-  grenadePrefab: {fileID: 1948591290861370, guid: 7b04fe350ed10a741a1e245447860d9e, type: 3}
+  grenadePrefab: {fileID: 1948591290861370, guid: 7b04fe350ed10a741a1e245447860d9e,
+    type: 3}
   knife: {fileID: 8618903642063752120}
   cameraWorld: {fileID: 8618903641891434307}
   cameraDepth: {fileID: 8618903642995680909}
@@ -4873,8 +4884,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2bd74ba84b94cd4bbb9b189a5e89fba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvasPrefab: {fileID: 5393623835024644669, guid: 48d7771c50bd625489d38055025597a3, type: 3}
-  qualitySettingsPrefab: {fileID: 5965040680208419700, guid: 458b1dae88c7baf46a163b218ce42a30, type: 3}
+  canvasPrefab: {fileID: 5393623835024644669, guid: 48d7771c50bd625489d38055025597a3,
+    type: 3}
+  qualitySettingsPrefab: {fileID: 5965040680208419700, guid: 458b1dae88c7baf46a163b218ce42a30,
+    type: 3}
 --- !u!114 &8618903642605061496
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4900,7 +4913,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: d4580ddb403296c4e8150653f661069e, type: 3}
+  m_Actions: {fileID: -944628639613478452, guid: d4580ddb403296c4e8150653f661069e,
+    type: 3}
   m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
@@ -5234,22 +5248,6 @@ MonoBehaviour:
   - {fileID: 8618903642126849506}
   hint: {fileID: 0}
   weightHint: 0
---- !u!114 &8618903642605061501
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8618903642605061503}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ab6f6c7a83f041e3a88cc99c2298b58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  InvObject: {fileID: 8618903643814665411}
-  secondary: {fileID: 0}
-  primary: {fileID: 0}
-  hotbarUI: {fileID: 0}
 --- !u!114 &8618903642605061500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5259,10 +5257,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 8618903642605061503}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 223efe2f086ccec429db1711cdc0d175, type: 3}
+  m_Script: {fileID: 11500000, guid: 0dc22e42ceac3c246adf96bad0492292, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HealthBar: {fileID: 0}
+  InvObject: {fileID: 0}
+  secondary: {fileID: 0}
+  primary: {fileID: 0}
+  hotbarUI: {fileID: 0}
 --- !u!1 &8618903642609087881
 GameObject:
   m_ObjectHideFlags: 0
@@ -5984,14 +5985,17 @@ MonoBehaviour:
       rotation:
         horizontal: {x: 0, y: 0, z: 0}
         vertical: {x: 0, y: 0, z: 0}
-  prefabCasing: {fileID: 1492315059354262, guid: b1995a53a949fac4db5722fc1df9efe4, type: 3}
-  prefabProjectile: {fileID: 1086664671600574, guid: 5953171a59c27394e9ad5cbb564affa8, type: 3}
+  prefabCasing: {fileID: 1492315059354262, guid: b1995a53a949fac4db5722fc1df9efe4,
+    type: 3}
+  prefabProjectile: {fileID: 1086664671600574, guid: 5953171a59c27394e9ad5cbb564affa8,
+    type: 3}
   controller: {fileID: 22100000, guid: b44a243981f153642b5cb4a1e2ce0c87, type: 2}
   spriteBody: {fileID: 21300000, guid: 9220d2cdf69e88c4eaebe5809c96284e, type: 3}
   audioClipHolster: {fileID: 8300000, guid: 8c4ede782a70c6e4b9e515d40d6e6e69, type: 3}
   audioClipUnholster: {fileID: 8300000, guid: 4aaa78b2722c0344cb0363a3980adf64, type: 3}
   audioClipReload: {fileID: 8300000, guid: 125edb9e36f963249bc792cca38492b1, type: 3}
-  audioClipReloadEmpty: {fileID: 8300000, guid: c565065df3907944b8b58f0d27066ba8, type: 3}
+  audioClipReloadEmpty: {fileID: 8300000, guid: c565065df3907944b8b58f0d27066ba8,
+    type: 3}
   audioClipReloadOpen: {fileID: 0}
   audioClipReloadInsert: {fileID: 0}
   audioClipReloadClose: {fileID: 0}
@@ -8060,7 +8064,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8618903643096858414}
-  m_LocalRotation: {x: 0.0000005969922, y: -3.4038375e-14, z: -0.000000061127565, w: 1}
+  m_LocalRotation: {x: 0.0000005969922, y: -3.4038375e-14, z: -0.000000061127565,
+    w: 1}
   m_LocalPosition: {x: 0.000011173372, y: 0.0108628655, z: -0.036935214}
   m_LocalScale: {x: 1, y: 1, z: 0.99999994}
   m_Children:
@@ -8923,7 +8928,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8618903643189754654}
-  m_LocalRotation: {x: 0.00000016018748, y: -0.000000067055225, z: -0.000000018626451, w: 1}
+  m_LocalRotation: {x: 0.00000016018748, y: -0.000000067055225, z: -0.000000018626451,
+    w: 1}
   m_LocalPosition: {x: -0.14000024, y: 0, z: -0.000000030994414}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -10176,7 +10182,8 @@ MonoBehaviour:
   socket: {fileID: 8618903642077968799}
   sprite: {fileID: 21300000, guid: 11e2c3e6b36da4d4d96415807183b4fa, type: 3}
   audioClipFire: {fileID: 8300000, guid: c1bd91cf7c20534478c9b9c5d69d1732, type: 3}
-  prefabFlashParticles: {fileID: 6630366363211497712, guid: e1d2196309ba6554ca2be7c5902e4afa, type: 3}
+  prefabFlashParticles: {fileID: 6630366363211497712, guid: e1d2196309ba6554ca2be7c5902e4afa,
+    type: 3}
   flashParticlesCount: 5
   prefabFlashLight: {fileID: 0}
   flashLightDuration: 0
@@ -10204,7 +10211,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8618903643497333146}
-  m_LocalRotation: {x: 0.000000052619725, y: -0.000000057742003, z: 0.000000047497455, w: 1}
+  m_LocalRotation: {x: 0.000000052619725, y: -0.000000057742003, z: 0.000000047497455,
+    w: 1}
   m_LocalPosition: {x: -0.004999957, y: 0.000000019967555, z: -0.000000002980232}
   m_LocalScale: {x: 1, y: 0.99999994, z: 1}
   m_Children: []
@@ -10446,7 +10454,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8618903643517552932}
-  m_LocalRotation: {x: 0.00000007916241, y: -0.000000059604645, z: -0.000000027008355, w: 1}
+  m_LocalRotation: {x: 0.00000007916241, y: -0.000000059604645, z: -0.000000027008355,
+    w: 1}
   m_LocalPosition: {x: 0.00000009834766, y: 0.00000005558133, z: 0.000000038146972}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -11436,7 +11445,8 @@ MonoBehaviour:
   socket: {fileID: 8618903643268214259}
   sprite: {fileID: 21300000, guid: 88f08d26903c2684d87f94cfc189f125, type: 3}
   audioClipFire: {fileID: 8300000, guid: c1bd91cf7c20534478c9b9c5d69d1732, type: 3}
-  prefabFlashParticles: {fileID: 6630366363211497712, guid: e1d2196309ba6554ca2be7c5902e4afa, type: 3}
+  prefabFlashParticles: {fileID: 6630366363211497712, guid: e1d2196309ba6554ca2be7c5902e4afa,
+    type: 3}
   flashParticlesCount: 5
   prefabFlashLight: {fileID: 0}
   flashLightDuration: 0
@@ -11556,7 +11566,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8618903643717792299}
-  m_LocalRotation: {x: 0.0000002549927, y: -1.7283667e-18, z: -0.000000001768587, w: 1}
+  m_LocalRotation: {x: 0.0000002549927, y: -1.7283667e-18, z: -0.000000001768587,
+    w: 1}
   m_LocalPosition: {x: -4.3284378e-13, y: -0.0000000018959156, z: -1.3921181e-10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -11724,7 +11735,8 @@ MonoBehaviour:
   socket: {fileID: 8618903642645134267}
   sprite: {fileID: 21300000, guid: e2f770cbf8df5f646a9a429359536638, type: 3}
   audioClipFire: {fileID: 8300000, guid: c1bd91cf7c20534478c9b9c5d69d1732, type: 3}
-  prefabFlashParticles: {fileID: 6630366363211497712, guid: e1d2196309ba6554ca2be7c5902e4afa, type: 3}
+  prefabFlashParticles: {fileID: 6630366363211497712, guid: e1d2196309ba6554ca2be7c5902e4afa,
+    type: 3}
   flashParticlesCount: 5
   prefabFlashLight: {fileID: 0}
   flashLightDuration: 0
@@ -11920,7 +11932,8 @@ MonoBehaviour:
   socket: {fileID: 8618903642018768418}
   sprite: {fileID: 21300000, guid: 644a08442a140a74c8640a163584abbf, type: 3}
   audioClipFire: {fileID: 8300000, guid: c1bd91cf7c20534478c9b9c5d69d1732, type: 3}
-  prefabFlashParticles: {fileID: 6630366363211497712, guid: e1d2196309ba6554ca2be7c5902e4afa, type: 3}
+  prefabFlashParticles: {fileID: 6630366363211497712, guid: e1d2196309ba6554ca2be7c5902e4afa,
+    type: 3}
   flashParticlesCount: 5
   prefabFlashLight: {fileID: 0}
   flashLightDuration: 0
@@ -12406,7 +12419,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8618903643843522560}
-  m_LocalRotation: {x: 0.0000007463209, y: -3.3035772e-14, z: -0.000000044264837, w: 1}
+  m_LocalRotation: {x: 0.0000007463209, y: -3.3035772e-14, z: -0.000000044264837,
+    w: 1}
   m_LocalPosition: {x: 0.0000000023136877, y: 0.026134595, z: 0.10205474}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

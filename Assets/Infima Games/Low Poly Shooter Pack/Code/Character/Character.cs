@@ -430,10 +430,13 @@ namespace InfimaGames.LowPolyShooterPack
 			//Update Aiming Alpha. We need to get this here because we're using the Animator to interpolate the aiming value.
 			aimingAlpha = characterAnimator.GetFloat(HashAimingAlpha);
 			
-			//Interpolate the world camera's field of view based on whether we are aiming or not.
-			cameraWorld.fieldOfView = Mathf.Lerp(fieldOfView, fieldOfView * equippedWeapon.GetFieldOfViewMultiplierAim(), aimingAlpha);
-			//Interpolate the depth camera's field of view based on whether we are aiming or not.
-			cameraDepth.fieldOfView = Mathf.Lerp(fieldOfViewWeapon, fieldOfViewWeapon * equippedWeapon.GetFieldOfViewMultiplierAimWeapon(), aimingAlpha);
+			if (equippedWeapon)
+			{
+				//Interpolate the world camera's field of view based on whether we are aiming or not.
+				cameraWorld.fieldOfView = Mathf.Lerp(fieldOfView, fieldOfView * equippedWeapon.GetFieldOfViewMultiplierAim(), aimingAlpha);
+				//Interpolate the depth camera's field of view based on whether we are aiming or not.
+				cameraDepth.fieldOfView = Mathf.Lerp(fieldOfViewWeapon, fieldOfViewWeapon * equippedWeapon.GetFieldOfViewMultiplierAimWeapon(), aimingAlpha);
+			}
 			
 			//Save Aiming Value.
 			wasAiming = aiming;
@@ -1336,7 +1339,7 @@ namespace InfimaGames.LowPolyShooterPack
 			if (!cursorLocked)
 				return;
 			
-			Log.wtf("Jumping!");
+			//Log.wtf("Jumping!");
 		}
 		/// <summary>
 		/// Next Inventory Weapon.

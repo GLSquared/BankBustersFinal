@@ -3,15 +3,58 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
-{
+{       
+    private int currentLevel = 0;
+
+    [SerializeField]
+    private GameObject[] Spawners;
+
+    [SerializeField]
+    private GameObject[] Objectives;
+
+    [SerializeField] 
+    private int MaximumEnemySpawns = 20;
+    private int currentTotalEnemies = 0;
+
     void Start()
     {
         
     }
 
-    void Update()
+    void FixedUpdate()
     {
         
+    }
+
+    private void RestartObjectives(int level)
+    {
+        foreach (GameObject objective in Objectives)
+        {
+            if (objective.GetComponent<TriggerEventHandler>().TriggerLevel >= level)
+                objective.GetComponent<BoxCollider>().enabled = true;
+        } 
+    }
+
+    private void RestartGame()
+    {
+        currentLevel = 0;
+        RestartObjectives(0);
+    }
+
+    private void RestartLevel()
+    {
+        RestartObjectives(currentLevel);
+    }
+
+    public void SpawnBoss(string bossName)
+    {
+
+    }
+
+    private void SpawnEnemy()
+    {
+        if (currentTotalEnemies == MaximumEnemySpawns)
+            return;
     }
 
     public void InvokeTriggerEvent(string triggerName)
@@ -21,8 +64,12 @@ public class GameManager : MonoBehaviour
         switch(triggerName)
         {
             case "test": 
-                print("bruh");
+                print("Test called");
                 break;
+            case "restart": 
+                print("Restart called");
+                RestartGame();
+                break;    
             default:
                 print("Unknown event name ?"+triggerName);
                 break;

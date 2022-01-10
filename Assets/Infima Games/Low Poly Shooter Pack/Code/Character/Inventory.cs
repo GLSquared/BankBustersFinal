@@ -53,8 +53,8 @@ namespace InfimaGames.LowPolyShooterPack
                 return equipped;
 
             //No point in allowing equipping the already-equipped weapon.
-            if (equippedIndex == index)
-                return equipped;
+            // if (equippedIndex == index)
+            //     return equipped;
             
             //Disable the currently equipped weapon, if we have one.
             if (equipped != null)
