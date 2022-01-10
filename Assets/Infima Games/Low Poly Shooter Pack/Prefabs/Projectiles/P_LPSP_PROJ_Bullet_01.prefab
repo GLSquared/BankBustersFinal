@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 114243545424532484}
   m_Layer: 15
   m_Name: P_LPSP_PROJ_Bullet_01
-  m_TagString: Untagged
+  m_TagString: PlayerBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

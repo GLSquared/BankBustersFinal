@@ -25,7 +25,8 @@ public class Policeman : MonoBehaviour
     private bool _crouching = false;
     private bool _targetting = false;
     private bool _shooting = false;
-    private bool reloading = false;
+    private bool _reloading = false;
+    private bool _isDead = false;
     private float _walkspeed = 0;
 
     // Weapon
@@ -40,8 +41,8 @@ public class Policeman : MonoBehaviour
 
     private float waitTime = 0;
 
-    private int currentAmmo = 5;
-    private int TotalAmmo = 5;
+    private int currentAmmo = 31;
+    private int TotalAmmo = 31;
 
     bool enableGizmos = false;
 
@@ -74,14 +75,22 @@ public class Policeman : MonoBehaviour
 
     private void FixedUpdate()
     {
-        enemy.LogicUpdate();
-
-        if (_shooting)
+        if (!enemy.isDead())
         {
-            Shooting();
-        }
+            enemy.LogicUpdate();
 
-        Animate();
+            if (_shooting)
+            {
+                Shooting();
+            }
+
+            Animate();
+        }
+        else
+        {
+            Dead();
+        }
+        
     }
 
     private void Animate()
@@ -98,7 +107,7 @@ public class Policeman : MonoBehaviour
         animator.SetBool("Crouching", _crouching);
         animator.SetInteger("Magazine", currentAmmo);
         animator.SetBool("Shoot", _shooting);
-        animator.SetBool("Reload", reloading);
+        animator.SetBool("Reload", _reloading);
         animator.SetInteger("Magezine", currentAmmo);
     }
 
@@ -107,10 +116,15 @@ public class Policeman : MonoBehaviour
         // TODO: Player Animation
         // Load the mag
         _shooting = false;
-        reloading = true;
+        _reloading = true;
         yield return new WaitForSeconds(3.3f);
         currentAmmo = TotalAmmo;
-        reloading = false;
+        _reloading = false;
+    }
+
+    private void Dead() 
+    {
+        Destroy(this.gameObject);
     }
 
     private void Shooting()

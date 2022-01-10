@@ -20,6 +20,7 @@ TagManager:
   - WeaponDrops
   - Collectible
   - Popup
+  - PlayerBullet
   layers:
   - Default
   - TransparentFX
