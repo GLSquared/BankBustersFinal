@@ -405,7 +405,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 178918662}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.79, y: 1.66, z: 14.07}
+  m_LocalPosition: {x: -4.79, y: 2.125, z: 0.93}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -916,13 +916,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1359641416}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -4.675, y: 2.46, z: 9.154}
+  m_LocalRotation: {x: -0, y: 0.7929373, z: -0, w: -0.6093033}
+  m_LocalPosition: {x: -2.252, y: 2.46, z: 8.389}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 255.078, z: 0}
 --- !u!1 &1445117234
 GameObject:
   m_ObjectHideFlags: 0
@@ -2409,7 +2409,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1935731229}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.665, y: 1.716, z: 5.77}
+  m_LocalPosition: {x: -5.842, y: 1.716, z: 7.568}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2338958571797031336}
@@ -2426,22 +2426,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1935731229}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd1629f5720de4a4982fb830f3d4adf0, type: 3}
+  m_Script: {fileID: 11500000, guid: 18f1e631359bd144ab092f166ef11d55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DebugEnabled: 1
+  DebugEnabled: 0
   EnemyLayer: 6
   currentState: 1
   MaxHealth: 100
   health: 100
-  viewAt: {fileID: 0}
+  viewAt: {fileID: 1445117234}
   UseViewAngle: 1
-  ViewAngle: 60
+  ViewAngle: 90
   ViewDistance: 20
-  MinimumEngageDistance: 10
-  MaximumEngageDistance: 15
-  WalkSpeed: 4
-  TurnSpeed: 420
+  MinimumEngageDistance: 6
+  MaximumEngageDistance: 20
+  WalkSpeed: 5
+  TurnSpeed: 260
   Acceleration: 8
   currentWalkSpeed: 0
   currentTarget: {fileID: 0}
@@ -35791,7 +35791,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2338958571797394504}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ece2dcd41c214a3ebead31bc951c81f, type: 3}
+  m_Script: {fileID: 11500000, guid: 8a505451489106141a80eace8a41eed0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   EyeLookAt: {fileID: 1445117235}
@@ -35802,6 +35802,8 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 36b0bac3418f2bf42a133af4a1766933, type: 2}
   Weapon: {fileID: 2338958572517686102}
   Muzzle: {fileID: 2338958572517686086}
+  bulletPrefab: {fileID: 5442370230314385968, guid: 14b4c14d87c7f1d46aef7fb6d2701d9c,
+    type: 3}
 --- !u!1 &2338958571797394506
 GameObject:
   m_ObjectHideFlags: 0
@@ -37376,7 +37378,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2338958572517517158}
   m_LocalRotation: {x: 0, y: 0, z: 0.000000025878066, w: 1}
-  m_LocalPosition: {x: -0.00000005665074, y: -0.50554025, z: 0.055419642}
+  m_LocalPosition: {x: 0.002, y: -0.506, z: 0.059}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2338958572517686100}

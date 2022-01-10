@@ -20,7 +20,7 @@ public class Enemy : MonoBehaviour
         Following,
         Surround,
         Attacking,
-        Dead
+        Dead,
     };
 
     public bool DebugEnabled = false;
@@ -57,6 +57,7 @@ public class Enemy : MonoBehaviour
     private int Behaviour = 0;
     public float currentWalkSpeed = 0f;
     private bool crouching = false;
+    private bool shooting = false;
 
     // Target
     public GameObject currentTarget;
@@ -70,6 +71,11 @@ public class Enemy : MonoBehaviour
     public bool isCrouching()
     {
         return crouching;
+    }
+
+    public bool isShooting()
+    {
+        return shooting;
     }
 
     public bool isPathfinding()
@@ -164,6 +170,9 @@ public class Enemy : MonoBehaviour
             case State.Following :
                 Following();
                 break;
+            case State.Attacking:
+                Fire();
+                break;
             default :
                 print("Idle - Enemy");
                 break;
@@ -214,11 +223,16 @@ public class Enemy : MonoBehaviour
                 {
                     if (CanSeeTarget(player, EnemyLayer))
                     {
+                        
                         if (currentTarget && DistanceTo(transform, currentTarget.transform) >= DistanceTo(transform, player.transform))
                         {
                             currentTarget = player;
-                        } else {
+
+                        }
+                        else
+                        {
                             currentTarget = player;
+
                         }
                     }
                 }
@@ -233,6 +247,7 @@ public class Enemy : MonoBehaviour
 
     private void Idle()
     {
+
         if (currentTarget) {
             UpdateState(State.Following);
             return;
@@ -241,11 +256,13 @@ public class Enemy : MonoBehaviour
 
     private void Following()
     {
+
         if (currentTarget == null)
         {
             UpdateState(State.Idle);
             return;
         }
+
 
         if (!CanSeeTarget(currentTarget, EnemyLayer))
         {
@@ -254,15 +271,15 @@ public class Enemy : MonoBehaviour
         
         if (agent.destination != null)
         {
-            if (DistanceTo(transform, currentTarget.transform) <= MinimumEngageDistance && CanSeeTarget(currentTarget, EnemyLayer))
+            if (DistanceTo(transform, currentTarget.transform) >= MinimumEngageDistance && CanSeeTarget(currentTarget, EnemyLayer))
             {
-                float step = TurnSpeed * Time.deltaTime;
+                
 
-                Quaternion target = Quaternion.LookRotation(currentTarget.transform.position - transform.position);
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, target, step);
-
+                UpdateState(State.Attacking);
+                return;
                 //setPathfind(transform, false);
             }
+
         } else {
             setPathfind(null, false);
         }
@@ -272,4 +289,32 @@ public class Enemy : MonoBehaviour
     {
 
     }
+
+    private void Fire()
+    {
+        
+        if (CanSeeTarget(currentTarget, EnemyLayer))
+        {
+
+            if (DistanceTo(transform, currentTarget.transform) >= MinimumEngageDistance && CanSeeTarget(currentTarget, EnemyLayer))
+            {
+                float step = TurnSpeed * Time.deltaTime;
+
+                Quaternion target = Quaternion.LookRotation(currentTarget.transform.position - transform.position);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, target, step);
+
+            }
+            shooting = true;
+
+        }
+        else
+        {
+            shooting = false;
+            UpdateState(State.Following);
+            return;
+        }
+
+        
+    }
+
 }
