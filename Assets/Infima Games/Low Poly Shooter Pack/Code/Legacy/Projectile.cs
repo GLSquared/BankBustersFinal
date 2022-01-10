@@ -148,6 +148,12 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 				//Destroy bullet object
 				Destroy(gameObject);
 			}
+
+			if (collision.gameObject.tag == "Enemy")
+			{
+				print("Fuck the jews");
+				collision.transform.gameObject.GetComponent<Enemy>().TakeDamage(20);
+			}
 		}
 
 		private IEnumerator DestroyTimer()

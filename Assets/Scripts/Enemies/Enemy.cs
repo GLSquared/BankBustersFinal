@@ -58,6 +58,7 @@ public class Enemy : MonoBehaviour
     public float currentWalkSpeed = 0f;
     private bool crouching = false;
     private bool shooting = false;
+    private bool dead = false;
 
     // Target
     public GameObject currentTarget;
@@ -66,6 +67,11 @@ public class Enemy : MonoBehaviour
     {
         agent.destination = target.position;
         pathfind = val;
+    }
+
+    public bool isDead()
+    {
+        return dead;
     }
 
     public bool isCrouching()
@@ -160,6 +166,7 @@ public class Enemy : MonoBehaviour
         switch (currentState) 
         {
             case State.Dead :
+                Dead();
                 return;
             case State.Spawning :
                 Spawning();
@@ -257,6 +264,11 @@ public class Enemy : MonoBehaviour
     private void Following()
     {
 
+        if (dead)
+        {
+            UpdateState(State.Dead);
+        }
+
         if (currentTarget == null)
         {
             UpdateState(State.Idle);
@@ -287,7 +299,7 @@ public class Enemy : MonoBehaviour
 
     private void Dead()
     {
-
+        dead = true;
     }
 
     private void Fire()
@@ -316,5 +328,7 @@ public class Enemy : MonoBehaviour
 
         
     }
+
+    
 
 }
