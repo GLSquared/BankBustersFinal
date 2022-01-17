@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     // Enemy Spawners
     [SerializeField]
     private GameObject[] Spawners;
+    private bool enemiesAlerted = false;
 
     // Objectives (REMEMBER TO ADD THE TRIGGERS TO THE OBJECTIVE FIELD BELOW)
     [SerializeField]
@@ -22,153 +23,75 @@ public class GameManager : MonoBehaviour
     // Spawner
     Spawner Spawner;
     
-    private GameObject currentPlayerController;
+    // Player
+    private GameObject player;
 
     void Start()
     {
         Spawner = gameObject.GetComponentInChildren<Spawner>();
+        player = GameObject.FindWithTag("Player");
     }
 
     void FixedUpdate()
     {
-        // Spawn enemies
-        SpawnEnemy();
-
-        currentPlayerController = GameObject.FindWithTag("Player");
+        // Enemy update
+        if (enemiesAlerted && GameObject.FindGameObjectsWithTag("Enemy").Length < MaximumEnemySpawns)
+        {
+            Spawner.SpawnEnemy(currentLevel);
+        }
     }
 
-    // Restart game objectives
-    private void RestartObjectives(int level)
+    private void ResetGame(int level)
     {
+        currentLevel = level;
+
+        // Reset objectives
         foreach (GameObject objective in Objectives)
         {
             if (objective.GetComponent<TriggerEventHandler>().TriggerLevel >= level)
                 objective.GetComponent<BoxCollider>().enabled = true;
         }
-        RestartDoors();
-    }
 
-    public void RespawnPlayerToLevel(int level)
-    {
-        switch(level)
-            {
-                case 0: 
-                    currentPlayerController.transform.position = GameObject.FindGameObjectWithTag("Respawn0").transform.position;
-                    break;
-                case 1:
-                    currentPlayerController.transform.position = GameObject.FindGameObjectWithTag("Respawn1").transform.position;
-                    break;
-                case 2:
-                    currentPlayerController.transform.position = GameObject.FindGameObjectWithTag("Respawn2").transform.position;
-                    break;
-                default:
-                    print("Unknown event name respawn");
-                    break;
-            }  
-    }
-
-    private void RestartEnemies()
-    {
-        foreach(GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
-        {
-            Destroy(enemy);
-        }
-    }
-
-    // Restart Game
-    private void RestartGame()
-    {
-        currentLevel = 0;
-        RestartObjectives(0);
-        RestartDoors();
-        RespawnPlayerToLevel(0);
-        RestartEnemies();
-    }
-
-    // Reset the doors to closed
-    private void RestartDoors()
-    {
+        // Reset doors
         foreach (GameObject door in GameObject.FindGameObjectsWithTag("Door"))
         {
-            if (door.GetComponent<Door>().TriggerLevel >= currentLevel)
+            if (door.GetComponent<Door>().TriggerLevel >= level)
             {
                 door.transform.localRotation = door.GetComponent<Door>().rotation;
                 door.GetComponent<Door>().isOpen = false;
             }
-        }        
-    }
+        }     
 
-    // Restart level
-    private void RestartLevel()
-    {
-        RestartObjectives(currentLevel);
-        RespawnPlayerToLevel(currentLevel);
-        RestartEnemies();
-    }
-
-    // Spawn enemies
-    private void SpawnEnemy()
-    {
-        if (GameObject.FindGameObjectsWithTag("Enemy").Length < MaximumEnemySpawns)
-            Spawner.SpawnEnemy(currentLevel);
-    }
-
-    // Open level doors
-    IEnumerator OpenDoor(GameObject door)
-    {
-        print(door.GetComponent<Door>().isOpen);
-
-        if (door.GetComponent<Door>().isOpen)
+        // Eliminate enemies
+        foreach(GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
         {
-            for (int i = 0; i < 150; i++)
-            {
-                Quaternion nah = Quaternion.Lerp(door.transform.localRotation, door.GetComponent<Door>().rotation, Time.deltaTime * 30);
-                door.transform.localRotation = nah;
-                yield return new WaitForSeconds(Time.deltaTime);
-            }
-            door.GetComponent<Door>().isOpen = false;
-        } else if (!door.GetComponent<Door>().isOpen){
-            for (int i = 0; i < 150; i++)
-            {
-                Quaternion nah = Quaternion.Lerp(door.transform.localRotation, Quaternion.Euler(0, door.transform.localRotation.y + (10 * 0.5f), 0), Time.deltaTime * 30);
-                door.transform.localRotation = nah;
-                yield return new WaitForSeconds(Time.deltaTime);
-            } 
-            door.GetComponent<Door>().isOpen = true;
+            Destroy(enemy);
         }
+
+        // Respawn Player
+        player.transform.position = FindPlayerRespawnLocation(level);
     }
 
-    // Hack level doors
-    IEnumerator HackDoor(GameObject door, float timer)
+    // Hacking doors
+    private void HackDoor(string trigger, float timer)
     {
-        if (currentPlayerController)
-            currentPlayerController.GetComponent<ClientController>().ShowHackingProgress(timer);
+        if (player && !player.GetComponent<ClientController>().Dead)
+            player.GetComponent<ClientController>().ShowHackingProgress(timer);
 
-        float maxFrames = Mathf.Floor(timer / Time.deltaTime);
-        for (int i = 0; i < maxFrames; i++) {
-            yield return new WaitForSeconds(Time.deltaTime);
-        }
-
-        if (door.GetComponent<Door>().isOpen)
-        {
-            for (int i = 0; i < 150; i++)
-            {
-                Quaternion nah = Quaternion.Lerp(door.transform.localRotation, door.GetComponent<Door>().rotation, Time.deltaTime * 30);
-                door.transform.localRotation = nah;
-                yield return new WaitForSeconds(Time.deltaTime);
-            }
-            door.GetComponent<Door>().isOpen = false;
-        } else if (!door.GetComponent<Door>().isOpen){
-            for (int i = 0; i < 150; i++)
-            {
-                Quaternion nah = Quaternion.Lerp(door.transform.localRotation, Quaternion.Euler(0, door.transform.localRotation.y + (10 * 0.5f), 0), Time.deltaTime * 30);
-                door.transform.localRotation = nah;
-                yield return new WaitForSeconds(Time.deltaTime);
-            } 
-            door.GetComponent<Door>().isOpen = true;
-        }
+        GameObject door = FindDoorOfTrigger(trigger);
+        if (door)
+            StartCoroutine(door.GetComponent<Door>().HackDoor(timer));
     }
 
+    // Open doors
+    private void OpenDoor(string trigger)
+    {
+        GameObject door = FindDoorOfTrigger(trigger);
+        if (door)
+            StartCoroutine(door.GetComponent<Door>().OpenDoor());
+    }
+
+    // Search for the door 
     private GameObject FindDoorOfTrigger(string trigger)
     {
         foreach (GameObject door in GameObject.FindGameObjectsWithTag("Door"))
@@ -180,6 +103,27 @@ public class GameManager : MonoBehaviour
         return null;
     }
 
+    // Search for a respawn location 
+    private Vector3 FindPlayerRespawnLocation(int level)
+    {
+        foreach (GameObject spawn in GameObject.FindGameObjectsWithTag("Respawn"))
+        {
+            if (spawn.GetComponent<PlayerSpawn>().Level == level)
+                return spawn.transform.position;
+        }
+
+        return Vector3.zero;
+    }
+
+    // Cheat to eliminate enemies
+    private void Nuke()
+    {
+        foreach(GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
+        {
+            enemy.GetComponent<Enemy>().Dead();
+        }
+    }
+
     // Invoke trigger boxes events
     public void InvokeTriggerEvent(string triggerName)
     {
@@ -187,45 +131,39 @@ public class GameManager : MonoBehaviour
 
         switch(triggerName)
         {
+            //CHEAT
             case "nuke": 
-                foreach(GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
-                {
-                    enemy.GetComponent<Enemy>().Dead();
-                }
+                Nuke();
                 break;
+            case "gamestart":
+                enemiesAlerted = true;
+                break;
+            case "gameover":
+                ResetGame(0);
+                break;
+            case "restartlevel":
+                ResetGame(currentLevel);
+                break;
+            case "":
+                break;
+            case "hackdoor":
+                HackDoor(triggerName, 5f);
+                break;
+            case "opendoor":
+                OpenDoor(triggerName);
+                break;
+            default:
+                Debug.Log("Unknown Trigger event name '"+triggerName+"'");
+                break;
+
+            /*
             case "opentestdoor":
                 StartCoroutine(OpenDoor(FindDoorOfTrigger(triggerName)));
                 break;
             case "hacktestdoor":
                 StartCoroutine(HackDoor(FindDoorOfTrigger(triggerName), 5f));
                 break;
-            case "onrespawn0":
-                print("player is on respawn trigger");
-                break;
-            case "level1complete":
-                if (currentLevel == 0)
-                    currentLevel = 1;
-                break;
-            case "level2complete":
-                if (currentLevel == 1)
-                    currentLevel = 2;
-                break;
-            case "level3complete":
-                if (currentLevel == 3)
-                    print("prosit irbaht");
-                break;                
-            case "restart": 
-                print("Restart called");
-                RestartGame();
-                break;   
-            case "restartlevel": 
-                RestartLevel();
-                break;                     
-            default:
-                print("Unknown event name ?"+triggerName);
-                break;
+             */
         }
-
-        print("Triggering event: "+triggerName+".");
     }
 }

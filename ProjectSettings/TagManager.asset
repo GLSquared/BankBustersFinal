@@ -24,9 +24,6 @@ TagManager:
   - SpawnLocation
   - Door
   - HackingBar
-  - Respawn0
-  - Respawn1
-  - Respawn2
   - Trigger
   layers:
   - Default
