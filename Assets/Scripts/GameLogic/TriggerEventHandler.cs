@@ -51,8 +51,6 @@ public class TriggerEventHandler : MonoBehaviour
 
     void OnTriggerExit(Collider collider)
     {
-        print(collider);
-
         if (collider.tag == TargetTag && IsPopup)
         {
             ClientWeaponController client   = collider.GetComponent<ClientWeaponController>();

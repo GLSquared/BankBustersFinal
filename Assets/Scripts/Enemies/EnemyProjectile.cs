@@ -43,7 +43,7 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 		}
 
 		//If the bullet collides with anything
-		private void OnCollisionEnter(Collision collision)
+		void OnTriggerEnter(Collider collision)
 		{
 			//Ignore collisions with other projectiles.
 			if (collision.gameObject.GetComponent<Projectile>() != null)
@@ -76,7 +76,7 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 			}
 
 			//If bullet collides with "Blood" tag
-			if (collision.transform.tag == "Blood")
+			/*if (collision.transform.tag == "Blood")
 			{
 				//Instantiate random impact prefab from array
 				Instantiate(bloodImpactPrefabs[Random.Range
@@ -127,7 +127,7 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 					<TargetScript>().isHit = true;
 				//Destroy bullet object
 				Destroy(gameObject);
-			}
+			}*/
 
 			//If bullet collides with "ExplosiveBarrel" tag
 			if (collision.transform.tag == "ExplosiveBarrel")

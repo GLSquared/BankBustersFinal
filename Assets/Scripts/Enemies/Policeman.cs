@@ -124,16 +124,17 @@ public class Policeman : MonoBehaviour
 
     private void Dead() 
     {
-        Destroy(this.gameObject);
+
     }
 
     private void Shooting()
     {
+        if (Mathf.Abs(_walkspeed) > 0.1f)
+            return;
+
         if (currentAmmo == 0)
         {
-            
             StartCoroutine("Reload");
-            
         }
         else
         {

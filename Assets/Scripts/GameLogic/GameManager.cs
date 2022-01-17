@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {   
-    private int currentLevel = 0;
+    public int currentLevel = 0;
 
     [SerializeField]
     private GameObject[] Spawners;
@@ -68,7 +68,10 @@ public class GameManager : MonoBehaviour
         switch(triggerName)
         {
             case "test": 
-                print("Test called");
+                foreach(GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
+                {
+                    enemy.GetComponent<Enemy>().Dead();
+                }
                 break;
             case "restart": 
                 print("Restart called");
