@@ -43,7 +43,8 @@ public class GameManager : MonoBehaviour
         {
             if (objective.GetComponent<TriggerEventHandler>().TriggerLevel >= level)
                 objective.GetComponent<BoxCollider>().enabled = true;
-        } 
+        }
+        RestartDoors();
     }
 
     // Restart Game
@@ -51,6 +52,16 @@ public class GameManager : MonoBehaviour
     {
         currentLevel = 0;
         RestartObjectives(0);
+        RestartDoors();
+    }
+
+    private void RestartDoors()
+    {
+        foreach (GameObject door in GameObject.FindGameObjectsWithTag("Door"))
+        {
+            door.GetComponent<Door>().isOpen = false;
+            door.transform.localRotation = door.GetComponent<Door>().rotation;
+        }        
     }
 
     // Restart level
