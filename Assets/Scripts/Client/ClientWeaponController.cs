@@ -203,6 +203,8 @@ public class ClientWeaponController : MonoBehaviour
                 else {
                     Equip("Secondary", equippingGun);
                 }
+
+                equippingGun.GetComponent<WeaponDestroy>().isPickedUp = true;
             }
         }
     }
