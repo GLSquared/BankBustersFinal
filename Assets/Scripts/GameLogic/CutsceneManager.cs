@@ -10,10 +10,19 @@ public class CutsceneManager : MonoBehaviour
 
     private bool isComplete;
 
+    GameObject canvas;
+
+    IEnumerator WaitForCanvas() {
+        yield return new WaitUntil(() => GameObject.Find("P_LPSP_UI_Canvas(Clone)") != null);
+        canvas = GameObject.Find("P_LPSP_UI_Canvas(Clone)");
+        canvas.SetActive(false);
+    }
+
     private void Awake()
     {
         player = GameObject.Find("Player");
         player.SetActive(false);
+        StartCoroutine(WaitForCanvas());
     }
 
     private void Update()
@@ -29,6 +38,7 @@ public class CutsceneManager : MonoBehaviour
         }
         else
         {
+            canvas.SetActive(true);
             player.SetActive(true);
         }
     }
