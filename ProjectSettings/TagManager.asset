@@ -24,7 +24,7 @@ TagManager:
   - SpawnLocation
   - Door
   - HackingBar
-  - Trigger
+  - CutsceneCam
   layers:
   - Default
   - TransparentFX
