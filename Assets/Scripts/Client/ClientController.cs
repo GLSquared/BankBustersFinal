@@ -54,9 +54,14 @@ public class ClientController : MonoBehaviour
         {
             UseItem(2);
         }
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.C) && Dead)
         {
-            print("breuh");
+            GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().InvokeTriggerEvent("restartlevel");
+            Dead = false;
+            Health = 100f;
+            DeathScreen.SetActive(false);
+            GetComponent<CapsuleCollider>().height = 1.5f;
+            GetComponent<Movement>().enabled = true;
         }
 
         if (currentDonut != null)

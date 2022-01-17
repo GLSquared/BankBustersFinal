@@ -127,7 +127,7 @@ public class Military : MonoBehaviour
 
     private void Dead()
     {
-
+        Destroy(gameObject.transform.parent.gameObject);
     }
 
     private void Shooting()

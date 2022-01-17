@@ -51,6 +51,8 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 			if (collision.gameObject.GetComponent<Projectile>() != null)
 				return;
 
+			if (collision.tag == "Trigger" || collision.tag == "Popup" || collision.tag == "Respawn0" || collision.tag == "Respawn1" || collision.tag == "Respawn2"  || collision.tag == "Finish")
+				return;
 			// //Ignore collision if bullet collides with "Player" tag
 			// if (collision.gameObject.CompareTag("Player")) 
 			// {

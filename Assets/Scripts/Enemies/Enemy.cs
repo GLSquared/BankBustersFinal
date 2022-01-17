@@ -32,8 +32,8 @@ public class Enemy : MonoBehaviour
     public State currentState = State.Idle;
 
     // General Enemy properties
-    [Range(1, 1000)] public float MaxHealth = 100f;
-    [Range(1, 1000)] public float health = 100f;
+    [Range(1, 5000)] public float MaxHealth = 100f;
+    [Range(1, 5000)] public float health = 100f;
 
     // Enemy sight
     [SerializeField] public GameObject viewAt;
@@ -107,6 +107,7 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(float damageAmount)
     {
         health = Mathf.Clamp(health - damageAmount, 0, health);
+        print(health);
 
         if (health <= 0)
         {
@@ -234,7 +235,7 @@ public class Enemy : MonoBehaviour
                 {
                     if (CanSeeTarget(player, EnemyLayer))
                     {
-                        print(player);
+                        // print(player);
                         if (currentTarget && DistanceTo(transform, currentTarget.transform) >= DistanceTo(transform, player.transform))
                         {
                             currentTarget = player;
@@ -303,7 +304,6 @@ public class Enemy : MonoBehaviour
     {
         DropWeapon();
         dead = true;
-        Destroy(gameObject);
     }
 
     private void Fire()

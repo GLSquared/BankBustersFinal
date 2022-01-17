@@ -12,12 +12,8 @@ public class MilitaryBoss : MonoBehaviour
     [SerializeField]
     private Transform EyeLookAt;
 
-    // Skins
     [SerializeField]
     private Transform CharacterModel;
-    [SerializeField]
-    private Material[] skins;
-    private Material skin;
 
     // Animations values
     private bool _crouching = false;
@@ -48,7 +44,6 @@ public class MilitaryBoss : MonoBehaviour
 
     void LogicDebugStart()
     {
-        print("Skin Selected: " + skin.ToString());
         print("Spawn Position: " + transform.position.ToString());
     }
 
@@ -57,20 +52,10 @@ public class MilitaryBoss : MonoBehaviour
         enemy = GetComponentInParent<Enemy>();
         animator = GetComponent<Animator>();
 
-        skin = skins[Random.Range(0, skins.Length)];
-
-        SkinnedMeshRenderer meshRenderer = CharacterModel.GetComponent<SkinnedMeshRenderer>();
-        Material[] materials = new Material[meshRenderer.materials.Length];
-        for (int i = 0; i < meshRenderer.materials.Length; i++)
-        {
-            materials[i] = skin;
-        }
-        meshRenderer.materials = materials;
-
         enemy.LogicStart();
 
-        enemy.MaxHealth = 1200;
-        enemy.health = 1200;
+        enemy.MaxHealth = 1420;
+        enemy.health = 1420;
 
         enemy.WalkSpeed = 3f;
 
@@ -129,7 +114,7 @@ public class MilitaryBoss : MonoBehaviour
 
     private void Dead()
     {
-
+        Destroy(gameObject.transform.parent.gameObject);
     }
 
     private void Shooting()

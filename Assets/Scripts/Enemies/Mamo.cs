@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
+using InfimaGames.LowPolyShooterPack.Legacy;
 
 [RequireComponent(typeof(Animator))]
-
-public class Policeman : MonoBehaviour
+public class Mamo : MonoBehaviour
 {
-    // Enemy constructor module
+ // Enemy constructor module
     Enemy enemy;
     private Animator animator;
 
@@ -20,6 +21,8 @@ public class Policeman : MonoBehaviour
     [SerializeField]
     private Material[] skins;
     private Material skin;
+
+    public Transform explosionPrefab;
 
     // Animations values
     private bool _crouching = false;
@@ -47,6 +50,18 @@ public class Policeman : MonoBehaviour
     bool enableGizmos = false;
 
     private AudioSource fireSound;
+
+	[Header("Throw Force")]
+	[Tooltip("Minimum throw force")]
+	public float minimumForce = 1500.0f;
+
+	[Tooltip("Maximum throw force")]
+	public float maximumForce = 2500.0f;
+
+	private float throwForce;
+
+	[Header("Audio")]
+	public AudioSource impactSound;
 
     void LogicDebugStart()
     {
@@ -89,7 +104,7 @@ public class Policeman : MonoBehaviour
             Animate();
         }
         else
-        {
+        { 
             Dead();
         }
         
@@ -124,9 +139,34 @@ public class Policeman : MonoBehaviour
         _reloading = false;
     }
 
+	private IEnumerator ExplosionTimer()
+	{
+
+        gameObject.AddComponent<Rigidbody>();
+        gameObject.AddComponent<GrenadeScript>();
+
+
+		//Raycast downwards to check ground
+		RaycastHit checkGround;
+		if (Physics.Raycast(transform.parent.gameObject.transform.position, Vector3.down, out checkGround, 50))
+		{
+			//Instantiate metal explosion prefab on ground
+			Instantiate(explosionPrefab, checkGround.point,
+				Quaternion.FromToRotation(Vector3.forward, checkGround.normal));
+		}
+
+		//Wait set amount of time
+		yield return new WaitForSeconds(25);
+
+        Destroy(gameObject.transform.parent.gameObject);
+    }
+
     private void Dead() 
     {
-        Destroy(gameObject.transform.parent.gameObject);
+		//Random rotation of the grenade
+        // transform.parent.gameObject.GetComponent<NavMeshAgent>().enabled = false;
+
+        StartCoroutine(ExplosionTimer());
     }
 
     private void Shooting()
@@ -147,7 +187,7 @@ public class Policeman : MonoBehaviour
                 bullet1.transform.position = Muzzle.transform.position;
                 bullet1.transform.rotation = Quaternion.LookRotation((enemy.currentTarget.transform.position + new Vector3(0, 1.55f, 0)) - Muzzle.transform.position, Vector3.up);
 
-                bullet1.GetComponent<InfimaGames.LowPolyShooterPack.Legacy.EnemyProjectile>().bulletDamage = 5;
+                bullet1.GetComponent<InfimaGames.LowPolyShooterPack.Legacy.EnemyProjectile>().bulletDamage = 1;
 
                 Rigidbody rb1 = bullet1.GetComponent<Rigidbody>();
                 rb1.AddForce(bullet1.transform.forward * 60f, ForceMode.Impulse);

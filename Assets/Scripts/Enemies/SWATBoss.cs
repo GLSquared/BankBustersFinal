@@ -15,9 +15,9 @@ public class SWATBoss : MonoBehaviour
     // Skins
     [SerializeField]
     private Transform CharacterModel;
-    [SerializeField]
-    private Material[] skins;
-    private Material skin;
+    // [SerializeField]
+    // private Material[] skins;
+    // private Material skin;
 
     // Animations values
     private bool _crouching = false;
@@ -48,8 +48,8 @@ public class SWATBoss : MonoBehaviour
 
     void LogicDebugStart()
     {
-        print("Skin Selected: " + skin.ToString());
-        print("Spawn Position: " + transform.position.ToString());
+        // print("Skin Selected: " + skin.ToString());
+        // print("Spawn Position: " + transform.position.ToString());
     }
 
     void Start()
@@ -57,15 +57,15 @@ public class SWATBoss : MonoBehaviour
         enemy = GetComponentInParent<Enemy>();
         animator = GetComponent<Animator>();
 
-        skin = skins[Random.Range(0, skins.Length)];
+        //skin = skins[Random.Range(0, skins.Length)];
 
         SkinnedMeshRenderer meshRenderer = CharacterModel.GetComponent<SkinnedMeshRenderer>();
         Material[] materials = new Material[meshRenderer.materials.Length];
-        for (int i = 0; i < meshRenderer.materials.Length; i++)
-        {
-            materials[i] = skin;
-        }
-        meshRenderer.materials = materials;
+        //for (int i = 0; i < meshRenderer.materials.Length; i++)
+        //{
+        //    materials[i] = skin;
+        //}
+        //meshRenderer.materials = materials;
 
         enemy.LogicStart();
 
@@ -129,7 +129,7 @@ public class SWATBoss : MonoBehaviour
 
     private void Dead()
     {
-
+        Destroy(gameObject.transform.parent.gameObject);
     }
 
     private void Shooting()
