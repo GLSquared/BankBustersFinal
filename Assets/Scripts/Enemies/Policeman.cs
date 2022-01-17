@@ -108,7 +108,7 @@ public class Policeman : MonoBehaviour
         animator.SetInteger("Magazine", currentAmmo);
         animator.SetBool("Shoot", _shooting);
         animator.SetBool("Reload", _reloading);
-        animator.SetInteger("Magezine", currentAmmo);
+        animator.SetInteger("Magazine", currentAmmo);
     }
 
     private IEnumerator Reload()

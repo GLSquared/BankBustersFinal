@@ -151,7 +151,7 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 
 			if (collision.gameObject.tag == "Enemy")
 			{
-				print("Fuck the jews");
+				print("I like fries");
 				collision.transform.gameObject.GetComponent<Enemy>().TakeDamage(20);
 			}
 		}
