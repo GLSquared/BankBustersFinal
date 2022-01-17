@@ -145,7 +145,7 @@ public class Policeman : MonoBehaviour
                 bullet1.transform.rotation = Quaternion.LookRotation((enemy.currentTarget.transform.position + new Vector3(0, 1.5f, 0)) - Muzzle.transform.position, Vector3.up);
 
                 Rigidbody rb1 = bullet1.GetComponent<Rigidbody>();
-                rb1.AddForce(bullet1.transform.forward * 300f, ForceMode.Impulse);
+                rb1.AddForce(bullet1.transform.forward * 100f, ForceMode.Impulse);
 
                 currentAmmo--;
 
