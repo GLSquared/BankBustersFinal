@@ -10,6 +10,7 @@ public class ClientController : MonoBehaviour
     float MaxHealthBarHeight = 261.34f;
     float Health = 100;
     public GameObject HealthBar;
+    GameObject HackingBar;
 
     float eatTime;
     GameObject currentDonut;
@@ -19,7 +20,12 @@ public class ClientController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        HackingBar = GameObject.FindGameObjectWithTag("HackingBar");
+        HackingBar.SetActive(false);
         cwc = gameObject.GetComponent<ClientWeaponController>();
+
+        ShowHackingProgress(5f);
+
     }
 
     // Update is called once per frame
@@ -67,6 +73,21 @@ public class ClientController : MonoBehaviour
     {
         Health = Mathf.Max(0, Health - damage);
         HealthBar.transform.parent.parent.Find("DamageScreen").GetComponent<Image>().color = new Color(1, 1, 1, 1);
+    }
+
+    IEnumerator IncreaseBar(float progressTime) {
+        float maxFrames = Mathf.Floor(progressTime / Time.deltaTime);
+        for (int i = 0; i < maxFrames; i++) {
+            HackingBar.transform.Find("Bar").localScale = new Vector3(i / maxFrames, 1, 1);
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
+        HackingBar.SetActive(false);
+    }
+
+    public void ShowHackingProgress(float progressTime) {
+        HackingBar.SetActive(true);
+        StartCoroutine(IncreaseBar(progressTime));
+
     }
 
     void UseItem(int itemIndex)
