@@ -165,6 +165,15 @@ public class GameManager : MonoBehaviour
                 break;
             case "hacktestdoor":
                 StartCoroutine(HackDoor(FindDoorOfTrigger(triggerName), 5f));
+                break;
+            case "level1complete":
+                currentLevel = 1;
+                break;
+            case "level2complete":
+                currentLevel = 2;
+                break;
+            case "level3complete":
+                print("prosit irbaht");
                 break;                
             case "restart": 
                 print("Restart called");
