@@ -430,7 +430,7 @@ PrefabInstance:
     - target: {fileID: 6918294183875720358, guid: 0475f577ba7ac1246a94177f6651b29f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.5
+      value: 42.45
       objectReference: {fileID: 0}
     - target: {fileID: 6918294183875720358, guid: 0475f577ba7ac1246a94177f6651b29f,
         type: 3}
@@ -490,7 +490,7 @@ PrefabInstance:
     - target: {fileID: 6918294183875720361, guid: 0475f577ba7ac1246a94177f6651b29f,
         type: 3}
       propertyPath: PopupText
-      value: Debug Text - V
+      value: Reset Level - V
       objectReference: {fileID: 0}
     - target: {fileID: 6918294183875720361, guid: 0475f577ba7ac1246a94177f6651b29f,
         type: 3}
@@ -1692,6 +1692,11 @@ PrefabInstance:
         type: 3}
       propertyPath: TriggerName
       value: OpenTestDoor
+      objectReference: {fileID: 0}
+    - target: {fileID: 6918294183875720361, guid: 0475f577ba7ac1246a94177f6651b29f,
+        type: 3}
+      propertyPath: TriggerLevel
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0475f577ba7ac1246a94177f6651b29f, type: 3}
