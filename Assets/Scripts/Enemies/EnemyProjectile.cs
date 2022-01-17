@@ -33,7 +33,7 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 		private void Start()
 		{
 			//Grab the game mode service, we need it to access the player character!
-			var gameModeService = ServiceLocator.Current.Get<IGameModeService>();
+			//var gameModeService = ServiceLocator.Current.Get<IGameModeService>();
 			//Ignore the main player character's collision. A little hacky, but it should work.
 			//Physics.IgnoreCollision(gameModeService.GetPlayerCharacter().GetComponent<Collider>(),
 			//GetComponent<Collider>());
@@ -147,6 +147,11 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 					<GasTankScript>().isHit = true;
 				//Destroy bullet object
 				Destroy(gameObject);
+			}
+
+			if (collision.transform.tag == "Player")
+			{
+				collision.transform.gameObject.GetComponent<ClientController>().ReduceHealth(10);
 			}
 		}
 
