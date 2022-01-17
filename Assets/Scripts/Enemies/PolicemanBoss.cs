@@ -129,7 +129,7 @@ public class PolicemanBoss : MonoBehaviour
 
     private void Dead()
     {
-
+        
     }
 
     private void Shooting()
