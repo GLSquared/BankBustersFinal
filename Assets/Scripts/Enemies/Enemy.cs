@@ -133,16 +133,18 @@ public class Enemy : MonoBehaviour
         weapons = Resources.LoadAll("Weapon Drops");
 
         UpdateState(State.Spawning);
-        
+
+        MinimumEngageDistance = Random.Range(5, 10);
+
+        Behaviour = Random.Range(1, 4);
+
         agent = GetComponent<NavMeshAgent>();
         agent.speed         = WalkSpeed;
         agent.angularSpeed  = TurnSpeed;
         agent.acceleration  = Acceleration;
         agent.stoppingDistance = MinimumEngageDistance;
 
-        MinimumEngageDistance = Random.Range(5,10);
         
-        Behaviour = Random.Range(1, 4);
 
         /*
         if (Behaviour == 3)
@@ -302,8 +304,8 @@ public class Enemy : MonoBehaviour
     private void Dead()
     {
         DropWeapon();
-        dead = true;
-        
+        Destroy(gameObject);
+
     }
 
     private void Fire()
@@ -331,18 +333,17 @@ public class Enemy : MonoBehaviour
 
     private void DropWeapon()
     {
-        int ranInt = Random.Range(0, 5);
+        int ranInt = Random.Range(0, 20);
         int wepRandInt = Random.Range(0, weapons.Length);
 
-        ranInt = 3;
         if (ranInt == 3)
         {
             
             RaycastHit hit;
             if (Physics.Raycast(transform.position, Vector3.down, out hit, 3f))
             {
-                GameObject wep = (GameObject)Instantiate(weapons[wepRandInt], hit.transform.position + new Vector3(0,0.2f,0), Quaternion.identity);
-
+                GameObject wep = (GameObject)Instantiate(weapons[wepRandInt], hit.point + new Vector3(0,0.2f,0), Quaternion.identity);
+                wep.AddComponent<WeaponDestroy>();
                 wep.name = weapons[wepRandInt].name;
             }
         }

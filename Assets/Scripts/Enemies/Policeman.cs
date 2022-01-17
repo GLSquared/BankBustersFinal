@@ -123,8 +123,13 @@ public class Policeman : MonoBehaviour
     }
 
     private void Dead() 
+<<<<<<< Updated upstream
     {
         Destroy(this.gameObject);
+=======
+    {
+        //Destroy(this.gameObject);
+>>>>>>> Stashed changes
     }
 
     private void Shooting()
