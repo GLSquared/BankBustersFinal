@@ -44,6 +44,8 @@ public class SWAT : MonoBehaviour
 
     bool enableGizmos = false;
 
+    private AudioSource fireSound;
+
     void LogicDebugStart()
     {
         print("Skin Selected: " + skin.ToString());
@@ -141,6 +143,8 @@ public class SWAT : MonoBehaviour
         {
             if (waitTime < 0)
             {
+                waitTime = 0.7f;
+
                 GameObject bullet1 = Instantiate(bulletPrefab);
                 bullet1.transform.position = Muzzle.transform.position;
                 bullet1.transform.rotation = Quaternion.LookRotation((enemy.currentTarget.transform.position + new Vector3(0, 1.5f, 0)) - Muzzle.transform.position, Vector3.up);
@@ -150,9 +154,13 @@ public class SWAT : MonoBehaviour
                 Rigidbody rb1 = bullet1.GetComponent<Rigidbody>();
                 rb1.AddForce(bullet1.transform.forward * 200f, ForceMode.Impulse);
 
+                fireSound = transform.GetChild(1).GetChild(0).GetChild(1).GetChild(0).GetChild(2).GetComponent<AudioSource>();
+
+                fireSound.PlayOneShot(fireSound.clip);
+
                 currentAmmo--;
 
-                waitTime = 0.7f;
+                
             }
             else
             {
