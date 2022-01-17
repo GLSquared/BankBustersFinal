@@ -201,7 +201,7 @@ public class Enemy : MonoBehaviour
         */
 
         RaycastHit hit;
-        if ( Physics.Raycast(transform.position, (target.transform.position - transform.position) , out hit, ViewDistance) )
+        if ( Physics.Raycast(viewAt.transform.position, (target.transform.position + new Vector3(0, 1, 0) - viewAt.transform.position) , out hit, ViewDistance) )
             if (hit.collider != null && hit.collider.tag == "Player")
                 return true;
 
@@ -210,7 +210,7 @@ public class Enemy : MonoBehaviour
 
     private bool IsInViewAngle(GameObject target)
     {   
-        float angle = Vector3.Angle((target.transform.position - transform.position), transform.forward);
+        float angle = Vector3.Angle((target.transform.position + new Vector3(0, 1, 0) - viewAt.transform.position), transform.forward);
 
         return angle <= ViewAngle/2 && angle >= -ViewAngle/2;
     }
@@ -283,13 +283,10 @@ public class Enemy : MonoBehaviour
         
         if (agent.destination != null)
         {
-            if (DistanceTo(transform, currentTarget.transform) >= MinimumEngageDistance && CanSeeTarget(currentTarget, EnemyLayer))
+            if (CanSeeTarget(currentTarget, EnemyLayer))
             {
-                
-
                 UpdateState(State.Attacking);
                 return;
-                //setPathfind(transform, false);
             }
 
         } else {
@@ -307,17 +304,13 @@ public class Enemy : MonoBehaviour
         
         if (CanSeeTarget(currentTarget, EnemyLayer))
         {
+            float step = TurnSpeed * Time.deltaTime;
 
-            if (DistanceTo(transform, currentTarget.transform) >= MinimumEngageDistance && CanSeeTarget(currentTarget, EnemyLayer))
-            {
-                float step = TurnSpeed * Time.deltaTime;
+            Quaternion target = Quaternion.LookRotation(currentTarget.transform.position - transform.position);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, target, step);
 
-                Quaternion target = Quaternion.LookRotation(currentTarget.transform.position - transform.position);
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, target, step);
 
-            }
             shooting = true;
-
         }
         else
         {
@@ -325,10 +318,5 @@ public class Enemy : MonoBehaviour
             UpdateState(State.Following);
             return;
         }
-
-        
     }
-
-    
-
 }
