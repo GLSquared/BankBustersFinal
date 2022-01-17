@@ -22,6 +22,7 @@ TagManager:
   - Popup
   - PlayerBullet
   - SpawnLocation
+  - HackingBar
   layers:
   - Default
   - TransparentFX
