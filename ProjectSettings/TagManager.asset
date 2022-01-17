@@ -23,6 +23,8 @@ TagManager:
   - PlayerBullet
   - SpawnLocation
   - Door
+  - HackingBar
+  - CutsceneCam
   layers:
   - Default
   - TransparentFX
