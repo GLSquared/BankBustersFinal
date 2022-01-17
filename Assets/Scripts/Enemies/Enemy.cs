@@ -63,7 +63,7 @@ public class Enemy : MonoBehaviour
     // Target
     public GameObject currentTarget;
 
-    private GameObject[] weapons;
+    private Object[] weapons;
     
     private void setPathfind(Transform target, bool val)
     {
@@ -130,6 +130,8 @@ public class Enemy : MonoBehaviour
     
     public void LogicStart()
     {
+        weapons = Resources.LoadAll("Weapon Drops");
+
         UpdateState(State.Spawning);
         
         agent = GetComponent<NavMeshAgent>();
@@ -330,15 +332,18 @@ public class Enemy : MonoBehaviour
     private void DropWeapon()
     {
         int ranInt = Random.Range(0, 5);
+        int wepRandInt = Random.Range(0, weapons.Length);
 
+        ranInt = 3;
         if (ranInt == 3)
         {
-            Object[] weaponPrefabs = Resources.LoadAll("Weapon Drops");
-
+            
             RaycastHit hit;
             if (Physics.Raycast(transform.position, Vector3.down, out hit, 3f))
             {
-                Instantiate(weaponPrefabs[Random.Range(0, 5)], hit.transform.position, Quaternion.identity);
+                GameObject wep = (GameObject)Instantiate(weapons[wepRandInt], hit.transform.position + new Vector3(0,0.2f,0), Quaternion.identity);
+
+                wep.name = weapons[wepRandInt].name;
             }
         }
 
