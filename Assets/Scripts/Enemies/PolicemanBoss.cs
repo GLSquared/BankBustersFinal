@@ -116,6 +116,7 @@ public class PolicemanBoss : MonoBehaviour
 
     private void Dead()
     {
+        GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().currentLevel=1;
         Destroy(gameObject.transform.parent.gameObject);
     }
 

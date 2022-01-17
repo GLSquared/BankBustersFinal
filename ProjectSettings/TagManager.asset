@@ -25,6 +25,8 @@ TagManager:
   - Door
   - HackingBar
   - CutsceneCam
+  - Trigger
+  - SpawnBoss
   layers:
   - Default
   - TransparentFX

@@ -10,11 +10,12 @@ public class Door : MonoBehaviour
     public int TriggerLevel;
 
     // Door local rotation
-    public Quaternion rotation;
+    public Quaternion rotationClose;
+    public Quaternion rotationOpen;
 
     void Start()
     {
-        rotation = transform.localRotation;
+        // rotationClose = transform.localRotation;
     }
 
     public IEnumerator HackDoor(float timer)
@@ -27,10 +28,10 @@ public class Door : MonoBehaviour
 
         if (isOpen)
         {
-            for (int i = 0; i < 150; i++)
+            for (int i = 0; i < 100; i++)
             {
                 Quaternion rot = Quaternion.Lerp(transform.localRotation, 
-                    rotation, 
+                    rotationClose, 
                     Time.deltaTime * 30);
                 transform.localRotation = rot;
                 yield return new WaitForSeconds(Time.deltaTime);
@@ -38,10 +39,10 @@ public class Door : MonoBehaviour
             isOpen = false;
         } else if (!isOpen)
         {   
-            for (int i = 0; i < 150; i++)
+            for (int i = 0; i < 100; i++)
             {
                 Quaternion rot = Quaternion.Lerp(transform.localRotation, 
-                    Quaternion.Euler(0, transform.localRotation.y + (10 * 0.5f), 0), 
+                    rotationOpen, 
                     Time.deltaTime * 30);
                 transform.localRotation = rot;
                 yield return new WaitForSeconds(Time.deltaTime);
@@ -54,20 +55,20 @@ public class Door : MonoBehaviour
     {
         if (isOpen)
         {
-            for (int i = 0; i < 150; i++)
+            for (int i = 0; i < 100; i++)
             {
                 Quaternion rot = Quaternion.Lerp(transform.localRotation, 
-                    rotation, 
+                    rotationClose, 
                     Time.deltaTime * 30);
                 transform.localRotation = rot;
                 yield return new WaitForSeconds(Time.deltaTime);
             }
             isOpen = false;
         } else if (!isOpen){
-            for (int i = 0; i < 150; i++)
+            for (int i = 0; i < 100; i++)
             {
                 Quaternion rot = Quaternion.Lerp(transform.localRotation, 
-                    Quaternion.Euler(0, transform.localRotation.y + (10 * 0.5f), 0), 
+                    rotationOpen, 
                     Time.deltaTime * 30);
                 transform.localRotation = rot;
                 yield return new WaitForSeconds(Time.deltaTime);

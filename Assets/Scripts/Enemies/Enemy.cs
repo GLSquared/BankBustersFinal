@@ -68,7 +68,7 @@ public class Enemy : MonoBehaviour
     
     private void setPathfind(Transform target, bool val)
     {
-        agent.destination = target.position - new Vector3(0,1f,0);
+        agent.SetDestination(target.position - new Vector3(0,1f,0));
         pathfind = val;
     }
 
@@ -108,7 +108,7 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(float damageAmount)
     {
         health = Mathf.Clamp(health - damageAmount, 0, health);
-        print(health);
+        // print(health);
 
         if (health <= 0)
         {

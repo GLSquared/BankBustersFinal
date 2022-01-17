@@ -20,16 +20,20 @@ public class GameManager : MonoBehaviour
     [SerializeField] 
     private int MaximumEnemySpawns = 5;
 
+    [SerializeField]
+    private GameObject[] Bosses;
+
     // Spawner
     Spawner Spawner;
     
     // Player
+    [SerializeField]
     private GameObject player;
 
     void Start()
     {
         Spawner = gameObject.GetComponentInChildren<Spawner>();
-        player = GameObject.FindWithTag("Player");
+        // player = GameObject.FindGameObjectWithTag("Player");
     }
 
     void FixedUpdate()
@@ -41,9 +45,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void SpawnBoss(int level)
+    {
+        GameObject spawn = GameObject.Find("BossSpawn"+level.ToString());
+
+        GameObject newEnemy = Instantiate(Bosses[level], spawn.transform.position, Quaternion.identity);
+        newEnemy.GetComponent<Enemy>().currentTarget = GameObject.Find("Player");
+    }
+
     private void ResetGame(int level)
     {
         currentLevel = level;
+        
+        if (level == 0)
+            enemiesAlerted = false;
 
         // Reset objectives
         foreach (GameObject objective in Objectives)
@@ -57,7 +72,7 @@ public class GameManager : MonoBehaviour
         {
             if (door.GetComponent<Door>().TriggerLevel >= level)
             {
-                door.transform.localRotation = door.GetComponent<Door>().rotation;
+                door.transform.localRotation = door.GetComponent<Door>().rotationClose;
                 door.GetComponent<Door>().isOpen = false;
             }
         }     
@@ -67,6 +82,8 @@ public class GameManager : MonoBehaviour
         {
             Destroy(enemy);
         }
+
+        print(player);
 
         // Respawn Player
         player.transform.position = FindPlayerRespawnLocation(level);
@@ -137,6 +154,10 @@ public class GameManager : MonoBehaviour
                 break;
             case "gamestart":
                 enemiesAlerted = true;
+                foreach(GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
+                {
+                    enemy.GetComponent<Enemy>().currentTarget = player;
+                }
                 break;
             case "gameover":
                 ResetGame(0);
@@ -144,10 +165,15 @@ public class GameManager : MonoBehaviour
             case "restartlevel":
                 ResetGame(currentLevel);
                 break;
-            case "":
+            case "saferoom1":
+                OpenDoor(triggerName);
                 break;
-            case "hackdoor":
-                HackDoor(triggerName, 5f);
+            case "boss_1":
+                SpawnBoss(currentLevel);
+                break;
+            case "bosshack1":
+                HackDoor(triggerName, 15f);
+                SpawnBoss(0);
                 break;
             case "opendoor":
                 OpenDoor(triggerName);
