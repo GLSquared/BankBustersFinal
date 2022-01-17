@@ -46,6 +46,8 @@ public class Policeman : MonoBehaviour
 
     bool enableGizmos = false;
 
+    private AudioSource fireSound;
+
     void LogicDebugStart()
     {
         print("Skin Selected: "+skin.ToString());
@@ -148,6 +150,8 @@ public class Policeman : MonoBehaviour
 
                 Rigidbody rb1 = bullet1.GetComponent<Rigidbody>();
                 rb1.AddForce(bullet1.transform.forward * 200f, ForceMode.Impulse);
+
+                fireSound.GetComponentInChildren<AudioSource>().Play();
 
                 currentAmmo--;
 
