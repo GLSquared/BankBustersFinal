@@ -341,8 +341,8 @@ public class Enemy : MonoBehaviour
             if (Physics.Raycast(transform.position, Vector3.down, out hit, 3f))
             {
                 GameObject wep = (GameObject)Instantiate(weapons[wepRandInt], hit.point + new Vector3(0, .2f, 0), Quaternion.identity);
-                wep.name = weapons[wepRandInt].name;
                 wep.AddComponent<WeaponDestroy>();
+                wep.name = weapons[wepRandInt].name;
             }
         }
     }
