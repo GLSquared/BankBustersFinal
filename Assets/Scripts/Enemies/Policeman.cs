@@ -139,9 +139,12 @@ public class Policeman : MonoBehaviour
         {
             if (waitTime < 0)
             {
-                GameObject bullet1 = Instantiate(bulletPrefab, Muzzle.transform.position - new Vector3(0, 0.08f, 0), Quaternion.identity);
+                GameObject bullet1 = Instantiate(bulletPrefab);
+                bullet1.transform.position = Muzzle.transform.position;
+                bullet1.transform.rotation = Quaternion.LookRotation((enemy.currentTarget.transform.position + new Vector3(0, 1.5f, 0)) - Muzzle.transform.position, Vector3.up);
+
                 Rigidbody rb1 = bullet1.GetComponent<Rigidbody>();
-                rb1.AddForce(transform.forward * 50f, ForceMode.Impulse);
+                rb1.AddForce(bullet1.transform.forward * 300f, ForceMode.Impulse);
 
                 currentAmmo--;
 

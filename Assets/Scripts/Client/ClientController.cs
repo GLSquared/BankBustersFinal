@@ -51,9 +51,14 @@ public class ClientController : MonoBehaviour
 
     }
 
-    public float ReduceHealth(float damage) {
+    public float GetReduceHealth(float damage) {
         Health = Mathf.Max(0, Health - damage);
         return Health;
+    }
+
+    public void ReduceHealth(float damage)
+    {
+        Health = Mathf.Max(0, Health - damage);
     }
 
     void UseItem(int itemIndex) {

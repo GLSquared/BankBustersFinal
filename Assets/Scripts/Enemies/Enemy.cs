@@ -62,10 +62,12 @@ public class Enemy : MonoBehaviour
 
     // Target
     public GameObject currentTarget;
+
+    private GameObject[] weapons;
     
     private void setPathfind(Transform target, bool val)
     {
-        agent.destination = target.position;
+        agent.destination = target.position - new Vector3(0,1f,0);
         pathfind = val;
     }
 
@@ -201,7 +203,7 @@ public class Enemy : MonoBehaviour
         */
 
         RaycastHit hit;
-        if ( Physics.Raycast(transform.position, (target.transform.position - transform.position) , out hit, ViewDistance) )
+        if ( Physics.Raycast(transform.position, (target.transform.position + new Vector3(0, 1.5f, 0) - transform.position ) , out hit, ViewDistance) )
             if (hit.collider != null && hit.collider.tag == "Player")
                 return true;
 
@@ -230,7 +232,7 @@ public class Enemy : MonoBehaviour
                 {
                     if (CanSeeTarget(player, EnemyLayer))
                     {
-                        
+                        print(player);
                         if (currentTarget && DistanceTo(transform, currentTarget.transform) >= DistanceTo(transform, player.transform))
                         {
                             currentTarget = player;
@@ -283,10 +285,8 @@ public class Enemy : MonoBehaviour
         
         if (agent.destination != null)
         {
-            if (DistanceTo(transform, currentTarget.transform) >= MinimumEngageDistance && CanSeeTarget(currentTarget, EnemyLayer))
+            if (CanSeeTarget(currentTarget, EnemyLayer))
             {
-                
-
                 UpdateState(State.Attacking);
                 return;
                 //setPathfind(transform, false);
@@ -299,7 +299,9 @@ public class Enemy : MonoBehaviour
 
     private void Dead()
     {
+        DropWeapon();
         dead = true;
+        
     }
 
     private void Fire()
@@ -307,15 +309,11 @@ public class Enemy : MonoBehaviour
         
         if (CanSeeTarget(currentTarget, EnemyLayer))
         {
+             float step = TurnSpeed * Time.deltaTime;
 
-            if (DistanceTo(transform, currentTarget.transform) >= MinimumEngageDistance && CanSeeTarget(currentTarget, EnemyLayer))
-            {
-                float step = TurnSpeed * Time.deltaTime;
+             Quaternion target = Quaternion.LookRotation(currentTarget.transform.position - transform.position);
+             transform.rotation = Quaternion.RotateTowards(transform.rotation, target, step);
 
-                Quaternion target = Quaternion.LookRotation(currentTarget.transform.position - transform.position);
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, target, step);
-
-            }
             shooting = true;
 
         }
@@ -324,6 +322,24 @@ public class Enemy : MonoBehaviour
             shooting = false;
             UpdateState(State.Following);
             return;
+        }
+
+        
+    }
+
+    private void DropWeapon()
+    {
+        int ranInt = Random.Range(0, 5);
+
+        if (ranInt == 3)
+        {
+            Object[] weaponPrefabs = Resources.LoadAll("Weapon Drops");
+
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, Vector3.down, out hit, 3f))
+            {
+                Instantiate(weaponPrefabs[Random.Range(0, 5)], hit.transform.position, Quaternion.identity);
+            }
         }
 
         
