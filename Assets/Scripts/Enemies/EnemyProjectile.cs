@@ -154,7 +154,6 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 			if (collision.transform.tag == "Player")
 			{
 				collision.transform.gameObject.GetComponent<ClientController>().ReduceHealth(bulletDamage);
-				print(bulletDamage);
 			}
 		}
 
