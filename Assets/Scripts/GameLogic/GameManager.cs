@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
-{       
+{   
     private int currentLevel = 0;
 
     [SerializeField]
@@ -16,14 +16,17 @@ public class GameManager : MonoBehaviour
     private int MaximumEnemySpawns = 20;
     private int currentTotalEnemies = 0;
 
+    Spawner Spawner;
+
     void Start()
     {
-        
+        Spawner = gameObject.GetComponentInChildren<Spawner>();
     }
 
     void FixedUpdate()
     {
-        
+        // Spawn enemies
+        SpawnEnemy();
     }
 
     private void RestartObjectives(int level)
@@ -53,8 +56,10 @@ public class GameManager : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        if (currentTotalEnemies == MaximumEnemySpawns)
+        if (currentTotalEnemies >= MaximumEnemySpawns)
             return;
+
+        Spawner.SpawnEnemy(currentLevel);
     }
 
     public void InvokeTriggerEvent(string triggerName)

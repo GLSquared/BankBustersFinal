@@ -21,6 +21,7 @@ TagManager:
   - Collectible
   - Popup
   - PlayerBullet
+  - SpawnLocation
   layers:
   - Default
   - TransparentFX
