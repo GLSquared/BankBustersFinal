@@ -105,10 +105,19 @@ public class ClientController : MonoBehaviour
         HackingBar.SetActive(false);
     }
 
+    IEnumerator SpeedBoost()
+    {
+        Movement mov = GetComponent<Movement>();
+        mov.speedWalking = 8f;
+        mov.speedRunning = 14f;
+        yield return new WaitForSeconds(20);
+        mov.speedWalking = 5f;
+        mov.speedRunning = 9f;
+    }
+
     public void ShowHackingProgress(float progressTime) {
         HackingBar.SetActive(true);
         StartCoroutine(IncreaseBar(progressTime));
-
     }
 
     void UseItem(int itemIndex)
@@ -128,9 +137,25 @@ public class ClientController : MonoBehaviour
                 EatDonut();
             }
 
+            if (currentItem == "Soda")
+            {
+                StartCoroutine(SpeedBoost());
+                DrinkSoda();
+            }          
+
             invItems.RemoveAt(itemIndex);
             UpdateHotbars();
 
+        }
+    }
+
+    void DrinkSoda()
+    {
+        if (currentDonut == null)
+        {
+            currentDonut = (GameObject)Instantiate(Resources.Load("ViewportItems/Soda"));
+            currentDonut.transform.parent = Camera.main.transform;
+            eatTime = Time.time + 2;
         }
     }
 
