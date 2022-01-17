@@ -144,8 +144,10 @@ public class Policeman : MonoBehaviour
                 bullet1.transform.position = Muzzle.transform.position;
                 bullet1.transform.rotation = Quaternion.LookRotation((enemy.currentTarget.transform.position + new Vector3(0, 1.5f, 0)) - Muzzle.transform.position, Vector3.up);
 
+                bullet1.GetComponent<InfimaGames.LowPolyShooterPack.Legacy.EnemyProjectile>().bulletDamage = 10;
+
                 Rigidbody rb1 = bullet1.GetComponent<Rigidbody>();
-                rb1.AddForce(bullet1.transform.forward * 300f, ForceMode.Impulse);
+                rb1.AddForce(bullet1.transform.forward * 200f, ForceMode.Impulse);
 
                 currentAmmo--;
 
