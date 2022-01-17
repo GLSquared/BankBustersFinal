@@ -6,6 +6,7 @@ public class Door : MonoBehaviour
 {
     public bool isOpen = false;
     public string TriggerDoor;
+    public int TriggerLevel;
     public Quaternion rotation;
 
     void Start()

@@ -54,6 +54,10 @@ public class ClientController : MonoBehaviour
         {
             UseItem(2);
         }
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            print("breuh");
+        }
 
         if (currentDonut != null)
         {

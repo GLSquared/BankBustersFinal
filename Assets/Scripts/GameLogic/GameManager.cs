@@ -22,19 +22,19 @@ public class GameManager : MonoBehaviour
     // Spawner
     Spawner Spawner;
     
-    // Client Weapon Controller
-    private ClientController clientController;
+    private GameObject currentPlayerController;
 
     void Start()
     {
         Spawner = gameObject.GetComponentInChildren<Spawner>();
-        clientController = GameObject.FindGameObjectWithTag("Player").GetComponent<ClientController>();
     }
 
     void FixedUpdate()
     {
         // Spawn enemies
         SpawnEnemy();
+
+        currentPlayerController = GameObject.FindWithTag("Player");
     }
 
     // Restart game objectives
@@ -48,12 +48,41 @@ public class GameManager : MonoBehaviour
         RestartDoors();
     }
 
+    public void RespawnPlayerToLevel(int level)
+    {
+        switch(level)
+            {
+                case 0: 
+                    currentPlayerController.transform.position = GameObject.FindGameObjectWithTag("Respawn0").transform.position;
+                    break;
+                case 1:
+                    currentPlayerController.transform.position = GameObject.FindGameObjectWithTag("Respawn1").transform.position;
+                    break;
+                case 2:
+                    currentPlayerController.transform.position = GameObject.FindGameObjectWithTag("Respawn2").transform.position;
+                    break;
+                default:
+                    print("Unknown event name respawn");
+                    break;
+            }  
+    }
+
+    private void RestartEnemies()
+    {
+        foreach(GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
+        {
+            Destroy(enemy);
+        }
+    }
+
     // Restart Game
     private void RestartGame()
     {
         currentLevel = 0;
         RestartObjectives(0);
         RestartDoors();
+        RespawnPlayerToLevel(0);
+        RestartEnemies();
     }
 
     // Reset the doors to closed
@@ -61,8 +90,11 @@ public class GameManager : MonoBehaviour
     {
         foreach (GameObject door in GameObject.FindGameObjectsWithTag("Door"))
         {
-            door.GetComponent<Door>().isOpen = false;
-            door.transform.localRotation = door.GetComponent<Door>().rotation;
+            if (door.GetComponent<Door>().TriggerLevel >= currentLevel)
+            {
+                door.transform.localRotation = door.GetComponent<Door>().rotation;
+                door.GetComponent<Door>().isOpen = false;
+            }
         }        
     }
 
@@ -70,6 +102,8 @@ public class GameManager : MonoBehaviour
     private void RestartLevel()
     {
         RestartObjectives(currentLevel);
+        RespawnPlayerToLevel(currentLevel);
+        RestartEnemies();
     }
 
     // Spawn enemies
@@ -107,9 +141,8 @@ public class GameManager : MonoBehaviour
     // Hack level doors
     IEnumerator HackDoor(GameObject door, float timer)
     {
-        print(door.GetComponent<Door>().isOpen);
-
-        clientController.ShowHackingProgress(timer);
+        if (currentPlayerController)
+            currentPlayerController.GetComponent<ClientController>().ShowHackingProgress(timer);
 
         float maxFrames = Mathf.Floor(timer / Time.deltaTime);
         for (int i = 0; i < maxFrames; i++) {
@@ -166,19 +199,28 @@ public class GameManager : MonoBehaviour
             case "hacktestdoor":
                 StartCoroutine(HackDoor(FindDoorOfTrigger(triggerName), 5f));
                 break;
+            case "onrespawn0":
+                print("player is on respawn trigger");
+                break;
             case "level1complete":
-                currentLevel = 1;
+                if (currentLevel == 0)
+                    currentLevel = 1;
                 break;
             case "level2complete":
-                currentLevel = 2;
+                if (currentLevel == 1)
+                    currentLevel = 2;
                 break;
             case "level3complete":
-                print("prosit irbaht");
+                if (currentLevel == 3)
+                    print("prosit irbaht");
                 break;                
             case "restart": 
                 print("Restart called");
                 RestartGame();
-                break;    
+                break;   
+            case "restartlevel": 
+                RestartLevel();
+                break;                     
             default:
                 print("Unknown event name ?"+triggerName);
                 break;

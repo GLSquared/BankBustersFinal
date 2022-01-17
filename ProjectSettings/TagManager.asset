@@ -23,6 +23,10 @@ TagManager:
   - PlayerBullet
   - SpawnLocation
   - Door
+  - HackingBar
+  - Respawn0
+  - Respawn1
+  - Respawn2
   layers:
   - Default
   - TransparentFX
