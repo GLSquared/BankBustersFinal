@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2277958257327034115}
   - component: {fileID: 2267863596110265021}
   - component: {fileID: 2267863596110265018}
-  - component: {fileID: 2267863596110264967}
+  - component: {fileID: 4866712917542791114}
   m_Layer: 0
   m_Name: Health Kit
   m_TagString: Collectible
@@ -4871,7 +4871,7 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!114 &2267863596110264967
+--- !u!114 &4866712917542791114
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4880,6 +4880,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 2267863595168735439}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38e467fa6d00eb5438a1ca61e28b7006, type: 3}
+  m_Script: {fileID: 11500000, guid: a4ca53ecd3b411e4189ba45a3add634c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
