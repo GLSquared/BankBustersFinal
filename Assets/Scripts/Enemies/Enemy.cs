@@ -59,6 +59,7 @@ public class Enemy : MonoBehaviour
     private bool crouching = false;
     private bool shooting = false;
     private bool dead = false;
+    float offsetY = 1.5f;
 
     // Target
     public GameObject currentTarget;
@@ -136,7 +137,7 @@ public class Enemy : MonoBehaviour
         agent.acceleration  = Acceleration;
         agent.stoppingDistance = MinimumEngageDistance;
 
-        MinimumEngageDistance = Random.Range(5,10);
+        MinimumEngageDistance = Random.Range(5f, 10f);
         
         Behaviour = Random.Range(1, 4);
 
@@ -201,7 +202,7 @@ public class Enemy : MonoBehaviour
         */
 
         RaycastHit hit;
-        if ( Physics.Raycast(transform.position, (target.transform.position - transform.position) , out hit, ViewDistance) )
+        if ( Physics.Raycast(transform.position, ((target.transform.position + new Vector3(0, offsetY, 0)) - transform.position) , out hit, ViewDistance) )
             if (hit.collider != null && hit.collider.tag == "Player")
                 return true;
 
@@ -228,6 +229,7 @@ public class Enemy : MonoBehaviour
 
                 if (!UseViewAngle || (UseViewAngle && IsInViewAngle(player)) )
                 {
+
                     if (CanSeeTarget(player, EnemyLayer))
                     {
                         
@@ -283,7 +285,7 @@ public class Enemy : MonoBehaviour
         
         if (agent.destination != null)
         {
-            if (DistanceTo(transform, currentTarget.transform) >= MinimumEngageDistance && CanSeeTarget(currentTarget, EnemyLayer))
+            if (CanSeeTarget(currentTarget, EnemyLayer))
             {
                 
 
@@ -308,14 +310,10 @@ public class Enemy : MonoBehaviour
         if (CanSeeTarget(currentTarget, EnemyLayer))
         {
 
-            if (DistanceTo(transform, currentTarget.transform) >= MinimumEngageDistance && CanSeeTarget(currentTarget, EnemyLayer))
-            {
-                float step = TurnSpeed * Time.deltaTime;
+            float step = TurnSpeed * Time.deltaTime;
 
-                Quaternion target = Quaternion.LookRotation(currentTarget.transform.position - transform.position);
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, target, step);
-
-            }
+            Quaternion target = Quaternion.LookRotation(currentTarget.transform.position - transform.position);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, target, step);
             shooting = true;
 
         }

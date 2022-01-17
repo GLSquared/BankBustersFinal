@@ -534,17 +534,6 @@
                 },
                 {
                     "name": "",
-                    "id": "25b34351-c1db-469f-93c4-b2db927cb789",
-                    "path": "<Mouse>/scroll",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Inventory Next Wheel",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "9837bdb8-e264-4c32-93bf-8013338f5c63",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
