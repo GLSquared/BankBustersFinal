@@ -777,11 +777,11 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 468fa6f5fb51cfb48a1f8345938f7964, type: 2}
-  - {fileID: 2100000, guid: 468fa6f5fb51cfb48a1f8345938f7964, type: 2}
-  - {fileID: 2100000, guid: 468fa6f5fb51cfb48a1f8345938f7964, type: 2}
-  - {fileID: 2100000, guid: 468fa6f5fb51cfb48a1f8345938f7964, type: 2}
-  - {fileID: 2100000, guid: 468fa6f5fb51cfb48a1f8345938f7964, type: 2}
+  - {fileID: 2100000, guid: e7d8dd847a0da2f4a99446c56d99fa69, type: 2}
+  - {fileID: 2100000, guid: e7d8dd847a0da2f4a99446c56d99fa69, type: 2}
+  - {fileID: 2100000, guid: e7d8dd847a0da2f4a99446c56d99fa69, type: 2}
+  - {fileID: 2100000, guid: e7d8dd847a0da2f4a99446c56d99fa69, type: 2}
+  - {fileID: 2100000, guid: e7d8dd847a0da2f4a99446c56d99fa69, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1823,7 +1823,7 @@ CapsuleCollider:
   m_Radius: 0.28778458
   m_Height: 1.8996356
   m_Direction: 1
-  m_Center: {x: 0.012664795, y: -0.09227502, z: -0.036010742}
+  m_Center: {x: 0.012664795, y: 0.03, z: -0.036010742}
 --- !u!1 &3240776898619678944
 GameObject:
   m_ObjectHideFlags: 0
