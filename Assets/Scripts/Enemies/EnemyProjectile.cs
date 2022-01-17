@@ -30,6 +30,8 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 		public Transform[] dirtImpactPrefabs;
 		public Transform[] concreteImpactPrefabs;
 
+		public float bulletDamage;
+
 		private void Start()
 		{
 			//Grab the game mode service, we need it to access the player character!
@@ -151,7 +153,8 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 
 			if (collision.transform.tag == "Player")
 			{
-				collision.transform.gameObject.GetComponent<ClientController>().ReduceHealth(10);
+				collision.transform.gameObject.GetComponent<ClientController>().ReduceHealth(bulletDamage);
+				print(bulletDamage);
 			}
 		}
 
@@ -171,5 +174,7 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 			//Destroy bullet object
 			Destroy(gameObject);
 		}
+
+		
 	}
 }

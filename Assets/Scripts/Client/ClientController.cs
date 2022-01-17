@@ -9,10 +9,8 @@ public class ClientController : MonoBehaviour
 
     float MaxHealthBarHeight = 261.34f;
     float Health = 100;
-    public bool Dead = false;
     public GameObject HealthBar;
     GameObject HackingBar;
-    GameObject DeathScreen;
 
     float eatTime;
     GameObject currentDonut;
@@ -24,12 +22,7 @@ public class ClientController : MonoBehaviour
     {
         HackingBar = GameObject.FindGameObjectWithTag("HackingBar");
         HackingBar.SetActive(false);
-
-        DeathScreen = HackingBar.transform.parent.Find("DeathScreen").gameObject;
-        DeathScreen.SetActive(false);
-
         cwc = gameObject.GetComponent<ClientWeaponController>();
-
     }
 
     // Update is called once per frame
@@ -38,13 +31,8 @@ public class ClientController : MonoBehaviour
         //;
         HealthBarUpdate();
 
-
         //Reduce damage screen opacity
         HealthBar.transform.parent.parent.Find("DamageScreen").GetComponent<Image>().color = new Color(1, 1, 1, HealthBar.transform.parent.parent.Find("DamageScreen").GetComponent<Image>().color.a - (Time.deltaTime * 5));
-
-        if (Input.GetKeyDown(KeyCode.C)) {
-            //CALL RESPAWN METHOD
-        }
 
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
@@ -71,25 +59,17 @@ public class ClientController : MonoBehaviour
 
     }
 
-    public void Die() {
-        if (!Dead) {
-            Dead = true;
-            DeathScreen.SetActive(true);
-            gameObject.GetComponent<CapsuleCollider>().height = .5f;
-            
-        }
+    public float GetReduceHealth(float damage)
+    {
+        Health = Mathf.Max(0, Health - damage);
+        HealthBar.transform.parent.parent.Find("DamageScreen").GetComponent<Image>().color = new Color(1, 1, 1, 1);
+        return Health;
     }
 
     public void ReduceHealth(float damage)
     {
         Health = Mathf.Max(0, Health - damage);
         HealthBar.transform.parent.parent.Find("DamageScreen").GetComponent<Image>().color = new Color(1, 1, 1, 1);
-
-        if (Health <= 0)
-        {
-            Die();
-        }
-
     }
 
     IEnumerator IncreaseBar(float progressTime) {
