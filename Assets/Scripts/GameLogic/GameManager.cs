@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject[] Spawners;
 
-    // Objectives
+    // Objectives (REMEMBER TO ADD THE TRIGGERS TO THE OBJECTIVE FIELD BELOW)
     [SerializeField]
     private GameObject[] Objectives;
 
@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] 
     private int MaximumEnemySpawns = 5;
 
+    // Spawner
     Spawner Spawner;
     
     // Client Weapon Controller
@@ -55,6 +56,7 @@ public class GameManager : MonoBehaviour
         RestartDoors();
     }
 
+    // Reset the doors to closed
     private void RestartDoors()
     {
         foreach (GameObject door in GameObject.FindGameObjectsWithTag("Door"))
