@@ -10,10 +10,21 @@ public class CutsceneManager : MonoBehaviour
 
     private bool isComplete;
 
+    GameObject canvas;
+    Camera mainCam;
+
+    IEnumerator WaitForCanvas() {
+        yield return new WaitUntil(() => GameObject.Find("P_LPSP_UI_Canvas(Clone)") != null);
+        canvas = GameObject.Find("P_LPSP_UI_Canvas(Clone)");
+        canvas.SetActive(false);
+    }
+
     private void Awake()
     {
         player = GameObject.Find("Player");
+        mainCam = Camera.main;
         player.SetActive(false);
+        StartCoroutine(WaitForCanvas());
     }
 
     private void Update()
@@ -24,11 +35,14 @@ public class CutsceneManager : MonoBehaviour
 
             if (cam.GetComponent<PlayableDirector>().state == PlayState.Paused)
             {
+                cam.SetActive(false);
+                mainCam.GetComponent<Camera>().enabled = false;
                 isComplete = true;
             }
         }
         else
         {
+            canvas.SetActive(true);
             player.SetActive(true);
         }
     }
