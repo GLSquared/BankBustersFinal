@@ -23,9 +23,6 @@ public class ClientController : MonoBehaviour
         HackingBar = GameObject.FindGameObjectWithTag("HackingBar");
         HackingBar.SetActive(false);
         cwc = gameObject.GetComponent<ClientWeaponController>();
-
-        ShowHackingProgress(5f);
-
     }
 
     // Update is called once per frame

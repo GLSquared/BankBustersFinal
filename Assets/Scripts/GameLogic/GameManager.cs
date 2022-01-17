@@ -4,22 +4,30 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {   
+    // Level
     public int currentLevel = 0;
 
+    // Enemy Spawners
     [SerializeField]
     private GameObject[] Spawners;
 
+    // Objectives
     [SerializeField]
     private GameObject[] Objectives;
 
+    // Maximum enemy spawns
     [SerializeField] 
     private int MaximumEnemySpawns = 5;
 
     Spawner Spawner;
+    
+    // Client Weapon Controller
+    private ClientController clientController;
 
     void Start()
     {
         Spawner = gameObject.GetComponentInChildren<Spawner>();
+        clientController = GameObject.FindGameObjectWithTag("Player").GetComponent<ClientController>();
     }
 
     void FixedUpdate()
@@ -84,9 +92,16 @@ public class GameManager : MonoBehaviour
     }
 
     // Hack level doors
-    IEnumerator HackDoor(GameObject door)
+    IEnumerator HackDoor(GameObject door, float timer)
     {
         print(door.GetComponent<Door>().isOpen);
+
+        clientController.ShowHackingProgress(timer);
+
+        float maxFrames = Mathf.Floor(timer / Time.deltaTime);
+        for (int i = 0; i < maxFrames; i++) {
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
 
         if (door.GetComponent<Door>().isOpen)
         {
@@ -136,7 +151,7 @@ public class GameManager : MonoBehaviour
                 StartCoroutine(OpenDoor(FindDoorOfTrigger(triggerName)));
                 break;
             case "hacktestdoor":
-                StartCoroutine();
+                StartCoroutine(HackDoor(FindDoorOfTrigger(triggerName), 5f));
                 break;                
             case "restart": 
                 print("Restart called");
