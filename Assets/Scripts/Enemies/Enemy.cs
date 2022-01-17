@@ -64,6 +64,7 @@ public class Enemy : MonoBehaviour
     public GameObject currentTarget;
 
     private Object[] weapons;
+    private Object[] items;
     
     private void setPathfind(Transform target, bool val)
     {
@@ -132,6 +133,7 @@ public class Enemy : MonoBehaviour
     public void LogicStart()
     {
         weapons = Resources.LoadAll("Weapon Drops");
+        items = Resources.LoadAll("ItemDrops");
 
         UpdateState(State.Spawning);
 
@@ -331,18 +333,29 @@ public class Enemy : MonoBehaviour
 
     private void DropWeapon()
     {
-        int ranInt = Random.Range(0, 5);
-        int wepRandInt = Random.Range(0, weapons.Length);
+        int ranInt = Random.Range(0, 2);
 
-        // ranInt = 3;
-        if (ranInt == 3)
+        if (ranInt == 0)
         {
+            int wepRandInt = Random.Range(0, weapons.Length);
             RaycastHit hit;
             if (Physics.Raycast(transform.position, Vector3.down, out hit, 3f))
             {
                 GameObject wep = (GameObject)Instantiate(weapons[wepRandInt], hit.point + new Vector3(0, .2f, 0), Quaternion.identity);
                 wep.AddComponent<WeaponDestroy>();
                 wep.name = weapons[wepRandInt].name;
+            }
+        }
+
+        if (ranInt == 1)
+        {
+            int itemRanInt = Random.Range(0, items.Length);
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, Vector3.down, out hit, 3f))
+            {
+                GameObject item = (GameObject)Instantiate(items[itemRanInt], hit.point + new Vector3(0, .2f, 0), Quaternion.identity);
+                item.AddComponent<WeaponDestroy>();
+                item.name = items[itemRanInt].name;
             }
         }
     }
