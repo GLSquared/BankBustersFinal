@@ -28,6 +28,9 @@ public class ClientController : MonoBehaviour
         //;
         HealthBarUpdate();
 
+        //Reduce damage screen opacity
+        HealthBar.transform.parent.parent.Find("DamageScreen").GetComponent<Image>().color = new Color(1, 1, 1, HealthBar.transform.parent.parent.Find("DamageScreen").GetComponent<Image>().color.a - (Time.deltaTime * 5));
+
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             UseItem(0);
@@ -41,32 +44,39 @@ public class ClientController : MonoBehaviour
             UseItem(2);
         }
 
-        if (currentDonut != null) {
-            currentDonut.transform.localPosition = new Vector3(-.15f, -.1f + Mathf.Sin(Time.time*30)/100f, .15f);
+        if (currentDonut != null)
+        {
+            currentDonut.transform.localPosition = new Vector3(-.15f, -.1f + Mathf.Sin(Time.time * 30) / 100f, .15f);
             currentDonut.transform.localRotation = Quaternion.Euler(40, 40, 0);
-            if (eatTime < Time.time) {
+            if (eatTime < Time.time)
+            {
                 Destroy(currentDonut);
             }
         }
 
     }
 
-    public float GetReduceHealth(float damage) {
+    public float GetReduceHealth(float damage)
+    {
         Health = Mathf.Max(0, Health - damage);
+        HealthBar.transform.parent.parent.Find("DamageScreen").GetComponent<Image>().color = new Color(1, 1, 1, 1);
         return Health;
     }
 
     public void ReduceHealth(float damage)
     {
         Health = Mathf.Max(0, Health - damage);
+        HealthBar.transform.parent.parent.Find("DamageScreen").GetComponent<Image>().color = new Color(1, 1, 1, 1);
     }
 
-    void UseItem(int itemIndex) {
+    void UseItem(int itemIndex)
+    {
         if (invItems.Count > itemIndex)
         {
             string currentItem = invItems[itemIndex];
 
-            if (currentItem == "Health Kit") {
+            if (currentItem == "Health Kit")
+            {
                 Health = Mathf.Min(100, Health + 60);
             }
 
@@ -82,28 +92,36 @@ public class ClientController : MonoBehaviour
         }
     }
 
-    void EatDonut() {
-        if (currentDonut == null) {
+    void EatDonut()
+    {
+        if (currentDonut == null)
+        {
             currentDonut = (GameObject)Instantiate(Resources.Load("ViewportItems/Donut"));
             currentDonut.transform.parent = Camera.main.transform;
             eatTime = Time.time + 2;
         }
     }
 
-    void HealthBarUpdate() {
+    void HealthBarUpdate()
+    {
         float HealthBarHeight = (Health / 100f) * MaxHealthBarHeight;
-        HealthBar.GetComponent<RectTransform>().sizeDelta = new Vector2(26.18f , HealthBarHeight);
+        HealthBar.GetComponent<RectTransform>().sizeDelta = new Vector2(26.18f, HealthBarHeight);
         HealthBar.GetComponent<RectTransform>().localPosition = new Vector3(0, (HealthBarHeight / 2f) - (MaxHealthBarHeight / 2), 0);
         HealthBar.GetComponent<Image>().color = Color.Lerp(new Color(0, 1, 0, .4f), new Color(1, 0, 0, .4f), 1 - (Health / 100f));
+
+
     }
 
-    void UpdateHotbars() {
-        for (int i = 0; i < 3; i++) {
-            if (invItems.Count >= (i+1))
+    void UpdateHotbars()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            if (invItems.Count >= (i + 1))
             {
                 cwc.SetHotbar(i + 3, invItems[i], false);
             }
-            else {
+            else
+            {
                 cwc.SetHotbar(i + 3, null, false);
             }
         }
@@ -111,10 +129,12 @@ public class ClientController : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag.Equals("Collectible")) {
+        if (collision.gameObject.tag.Equals("Collectible"))
+        {
 
             //add item to inventory
-            if (invItems.Count < 3) {
+            if (invItems.Count < 3)
+            {
                 GameObject item = collision.gameObject;
                 invItems.Add(item.name);
                 UpdateHotbars();
