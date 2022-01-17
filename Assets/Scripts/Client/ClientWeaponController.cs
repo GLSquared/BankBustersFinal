@@ -204,7 +204,9 @@ public class ClientWeaponController : MonoBehaviour
                     Equip("Secondary", equippingGun);
                 }
 
-                //equippingGun.GetComponent<WeaponDestroy>().isPickedUp = true;
+                if (equippingGun.GetComponent<WeaponDestroy>() != null) {
+                    equippingGun.GetComponent<WeaponDestroy>().isPickedUp = true;
+                }
             }
         }
     }
