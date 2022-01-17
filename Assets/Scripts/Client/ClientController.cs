@@ -1,3 +1,4 @@
+using InfimaGames.LowPolyShooterPack;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,9 @@ public class ClientController : MonoBehaviour
     float Health = 100;
     public GameObject HealthBar;
     GameObject HackingBar;
+    GameObject DeathScreen;
+
+    public bool Dead;
 
     float eatTime;
     GameObject currentDonut;
@@ -22,6 +26,10 @@ public class ClientController : MonoBehaviour
     {
         HackingBar = GameObject.FindGameObjectWithTag("HackingBar");
         HackingBar.SetActive(false);
+
+        DeathScreen = HackingBar.transform.parent.Find("DeathScreen").gameObject;
+        DeathScreen.SetActive(false);
+
         cwc = gameObject.GetComponent<ClientWeaponController>();
     }
 
@@ -59,17 +67,24 @@ public class ClientController : MonoBehaviour
 
     }
 
-    public float GetReduceHealth(float damage)
-    {
-        Health = Mathf.Max(0, Health - damage);
-        HealthBar.transform.parent.parent.Find("DamageScreen").GetComponent<Image>().color = new Color(1, 1, 1, 1);
-        return Health;
+    void Die() {
+        if (!Dead) {
+            Dead = true;
+            DeathScreen.SetActive(true);
+            GetComponent<CapsuleCollider>().height = .8f;
+            GetComponent<Movement>().enabled = false;
+        }
     }
 
     public void ReduceHealth(float damage)
     {
         Health = Mathf.Max(0, Health - damage);
         HealthBar.transform.parent.parent.Find("DamageScreen").GetComponent<Image>().color = new Color(1, 1, 1, 1);
+
+        if (Health <= 0) {
+            Die();
+        }
+
     }
 
     IEnumerator IncreaseBar(float progressTime) {
