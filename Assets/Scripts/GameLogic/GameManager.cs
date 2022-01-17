@@ -13,8 +13,7 @@ public class GameManager : MonoBehaviour
     private GameObject[] Objectives;
 
     [SerializeField] 
-    private int MaximumEnemySpawns = 20;
-    private int currentTotalEnemies = 0;
+    private int MaximumEnemySpawns = 5;
 
     Spawner Spawner;
 
@@ -56,9 +55,9 @@ public class GameManager : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        if (currentTotalEnemies >= MaximumEnemySpawns)
+        if (GameObject.FindGameObjectsWithTag("Enemy").Length >= MaximumEnemySpawns)
             return;
-
+        
         Spawner.SpawnEnemy(currentLevel);
     }
 

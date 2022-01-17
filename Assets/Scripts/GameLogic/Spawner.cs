@@ -7,11 +7,16 @@ public class Spawner : MonoBehaviour
     [SerializeField]
     GameObject[] EnemyPrefabs;
 
-    List<GameObject>[] SpawnerLevels = new List<GameObject>[3];
+    List<GameObject>[] SpawnerLevels;
 
-    public void Start()
+    void Start()
     {
         SpawnerLevels = new List<GameObject>[3];
+
+        for (int index = 0; index < SpawnerLevels.Length; index++)
+        {
+            SpawnerLevels[index] = new List<GameObject>();
+        }
 
         foreach(GameObject spawner in GameObject.FindGameObjectsWithTag("SpawnLocation"))
         {
@@ -25,10 +30,10 @@ public class Spawner : MonoBehaviour
     public void SpawnEnemy(int level)
     {
         GameObject[] levelSpawners = SpawnerLevels[level].ToArray();
-        print(levelSpawners);
         GameObject randomSpawner = levelSpawners[Random.Range(0, levelSpawners.Length)];
 
         GameObject newEnemy = Instantiate(EnemyPrefabs[level]);
         newEnemy.transform.position = randomSpawner.transform.position;
+        newEnemy.GetComponent<Enemy>().currentTarget = GameObject.Find("Player");
     }
 }

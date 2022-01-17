@@ -132,16 +132,15 @@ public class Enemy : MonoBehaviour
     {
         UpdateState(State.Spawning);
         
+        MinimumEngageDistance = Random.Range(5,10);
+        Behaviour = Random.Range(1, 4);
+
         agent = GetComponent<NavMeshAgent>();
         agent.speed         = WalkSpeed;
         agent.angularSpeed  = TurnSpeed;
         agent.acceleration  = Acceleration;
         agent.stoppingDistance = MinimumEngageDistance;
-
-        MinimumEngageDistance = Random.Range(5,10);
         
-        Behaviour = Random.Range(1, 4);
-
         /*
         if (Behaviour == 3)
         {
@@ -232,16 +231,13 @@ public class Enemy : MonoBehaviour
                 {
                     if (CanSeeTarget(player, EnemyLayer))
                     {
-                        print(player);
                         if (currentTarget && DistanceTo(transform, currentTarget.transform) >= DistanceTo(transform, player.transform))
                         {
                             currentTarget = player;
-
                         }
                         else
                         {
                             currentTarget = player;
-
                         }
                     }
                 }
@@ -309,13 +305,12 @@ public class Enemy : MonoBehaviour
         
         if (CanSeeTarget(currentTarget, EnemyLayer))
         {
-             float step = TurnSpeed * Time.deltaTime;
+            float step = TurnSpeed * Time.deltaTime;
 
-             Quaternion target = Quaternion.LookRotation(currentTarget.transform.position - transform.position);
-             transform.rotation = Quaternion.RotateTowards(transform.rotation, target, step);
+            Quaternion target = Quaternion.LookRotation(currentTarget.transform.position - transform.position);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, target, step);
 
             shooting = true;
-
         }
         else
         {
