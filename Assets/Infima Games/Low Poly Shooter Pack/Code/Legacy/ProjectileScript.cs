@@ -221,6 +221,11 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 					hit.gameObject.GetComponent<GasTankScript>().isHit = true;
 					hit.gameObject.GetComponent<GasTankScript>().explosionTimer = 0.05f;
 				}
+
+				if (hit.transform.tag == "Enemy")
+				{
+					hit.transform.gameObject.GetComponent<Enemy>().TakeDamage(100);
+				}
 			}
 		}
 	}
