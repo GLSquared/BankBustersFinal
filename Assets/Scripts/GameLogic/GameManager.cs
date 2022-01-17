@@ -175,6 +175,10 @@ public class GameManager : MonoBehaviour
                 HackDoor(triggerName, 15f);
                 SpawnBoss(0);
                 break;
+            case "bosshack2":
+                HackDoor(triggerName, 15f);
+                SpawnBoss(1);
+                break;
             case "opendoor":
                 OpenDoor(triggerName);
                 break;
