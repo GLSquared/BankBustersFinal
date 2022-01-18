@@ -228,11 +228,13 @@ public class GameManager : MonoBehaviour
     IEnumerator waitForAnimation(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
-        SceneManager.LoadScene("MainMenu");
+        LoadMainMenu();
     }
 
     public void LoadMainMenu()
     {
+        Cursor.visible = true;
+        Cursor.lockState = (Cursor.visible == false ? CursorLockMode.Locked : CursorLockMode.None);
         SceneManager.LoadScene("MainMenu");
     }
 }
