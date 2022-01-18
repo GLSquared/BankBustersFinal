@@ -215,5 +215,11 @@ public class ClientWeaponController : MonoBehaviour
                 equippingGun.GetComponent<WeaponDestroy>().isPickedUp = true;
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            GameManager gm = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
+            gm.Nuke();
+        }
     }
 }

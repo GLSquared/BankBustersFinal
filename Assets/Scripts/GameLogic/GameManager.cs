@@ -142,7 +142,7 @@ public class GameManager : MonoBehaviour
     }
 
     // Cheat to eliminate enemies
-    private void Nuke()
+    public void Nuke()
     {
         foreach(GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
         {

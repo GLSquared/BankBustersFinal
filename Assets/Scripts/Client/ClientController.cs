@@ -117,6 +117,11 @@ public class ClientController : MonoBehaviour
             GetComponent<Movement>().enabled = true;
         }
 
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            SelfDestroy();
+        }
+
         if (currentDonut != null)
         {
             currentDonut.transform.localPosition = new Vector3(-.15f, -.1f + Mathf.Sin(Time.time * 30) / 100f, .15f);
@@ -245,6 +250,11 @@ public class ClientController : MonoBehaviour
                 cwc.SetHotbar(i + 3, null, false);
             }
         }
+    }
+
+    void SelfDestroy()
+    {
+        ReduceHealth(300);
     }
 
     void OnCollisionEnter(Collision collision)
