@@ -17,6 +17,10 @@ public class ClientController : MonoBehaviour
     GameObject BossHealthPanel;
     GameObject ObjectivesPanel;
 
+    
+    public float currentMoney = 0f;
+    float targMoney;
+
     public bool Dead;
 
     float eatTime;
@@ -32,6 +36,9 @@ public class ClientController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        targMoney = 5000000f;
+
         HackingBar = GameObject.FindGameObjectWithTag("HackingBar");
         HackingBar.SetActive(false);
 
@@ -51,6 +58,10 @@ public class ClientController : MonoBehaviour
     {
         //;
         HealthBarUpdate();
+
+        currentMoney = Mathf.Lerp(currentMoney, targMoney, Time.deltaTime * 10f);
+
+        GameObject.FindGameObjectWithTag("MoneyText").GetComponent<TextMeshProUGUI>().text = "$" + string.Format("{0:n0}", Mathf.Ceil(currentMoney));
 
         GameObject Boss = null;
 
@@ -174,6 +185,7 @@ public class ClientController : MonoBehaviour
     public void ReduceHealth(float damage)
     {   
         StartCoroutine(NoMyMoney());
+        targMoney -= Random.Range(10000f, 50000f);
 
         Health = Mathf.Max(0, Health - damage);
         HealthBar.transform.parent.parent.Find("DamageScreen").GetComponent<Image>().color = new Color(1, 1, 1, 1);
