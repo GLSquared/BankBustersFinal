@@ -129,9 +129,17 @@ public class Enemy : MonoBehaviour
         agent.angularSpeed  = TurnSpeed;
         agent.acceleration  = Acceleration;
     }
+
+    IEnumerator SFX() {
+        yield return new WaitForSeconds(Random.Range(3f, 15f));
+        GetComponent<AudioSource>().PlayOneShot((AudioClip)Resources.Load("Sounds/SecuritySFX/" + Mathf.FloorToInt(Random.Range(1, 13)).ToString()));
+        yield return new WaitForSeconds(Random.Range(5f, 15f));
+        StartCoroutine(SFX());
+    }
     
     public void LogicStart()
     {
+        StartCoroutine(SFX());
         weapons = Resources.LoadAll("Weapon Drops");
         items = Resources.LoadAll("ItemDrops");
 
