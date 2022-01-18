@@ -10,6 +10,9 @@ public class HelicopterAnim : MonoBehaviour
     float rotorSpeed = 100f;
     float tilt = 0f;
 
+    [SerializeField]
+    GameObject cam;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +23,15 @@ public class HelicopterAnim : MonoBehaviour
     void Update()
     {
         if (animPlaying) {
+
+
+            if (!cam.activeSelf) {
+                cam.SetActive(true);
+            }
+
+            cam.transform.position -= new Vector3(Time.deltaTime/3f, 0, Time.deltaTime / 3f);
+
+            cam.transform.LookAt(transform.position);
 
             rotorSpeed = Mathf.Min(1500f, rotorSpeed + Time.deltaTime * 150f);
 

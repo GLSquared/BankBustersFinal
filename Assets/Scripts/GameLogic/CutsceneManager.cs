@@ -43,7 +43,9 @@ public class CutsceneManager : MonoBehaviour
         else
         {
             canvas.SetActive(true);
-            player.SetActive(true);
+            if (player != null) {
+                player.SetActive(true);
+            }
         }
     }
 }

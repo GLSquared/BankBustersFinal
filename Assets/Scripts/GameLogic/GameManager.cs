@@ -16,6 +16,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject[] Objectives;
 
+    [SerializeField]
+    private GameObject Helicopter;
+
     // Maximum enemy spawns
     [SerializeField] 
     private int MaximumEnemySpawns = 5;
@@ -32,6 +35,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        Helicopter.SetActive(false);
         Spawner = gameObject.GetComponentInChildren<Spawner>();
         // player = GameObject.FindGameObjectWithTag("Player");
     }
@@ -48,6 +52,8 @@ public class GameManager : MonoBehaviour
     void SpawnBoss(int level)
     {
         GameObject spawn = GameObject.Find("BossSpawn"+level.ToString());
+
+        MaximumEnemySpawns += 2;
 
         GameObject newEnemy = Instantiate(Bosses[level], spawn.transform.position, Quaternion.identity);
         newEnemy.GetComponent<Enemy>().currentTarget = GameObject.Find("Player");
@@ -72,7 +78,7 @@ public class GameManager : MonoBehaviour
         {
             if (door.GetComponent<Door>().TriggerLevel >= level)
             {
-                door.transform.localRotation = door.GetComponent<Door>().rotationClose;
+                door.transform.localRotation = Quaternion.Euler(door.GetComponent<Door>().rotationClose.x, door.GetComponent<Door>().rotationClose.y, door.GetComponent<Door>().rotationClose.z);
                 door.GetComponent<Door>().isOpen = false;
             }
         }     
@@ -80,7 +86,10 @@ public class GameManager : MonoBehaviour
         // Eliminate enemies
         foreach(GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
         {
-            Destroy(enemy);
+            //IF enemy is not a boss
+            if (!enemy.name.Contains("Boss")) {
+                Destroy(enemy);
+            }
         }
 
         print(player);
@@ -168,6 +177,12 @@ public class GameManager : MonoBehaviour
             case "saferoom1":
                 OpenDoor(triggerName);
                 break;
+            case "saferoom2":
+                OpenDoor(triggerName);
+                break;
+            case "saferoom3":
+                OpenDoor(triggerName);
+                break;
             case "boss_1":
                 SpawnBoss(currentLevel);
                 break;
@@ -179,8 +194,18 @@ public class GameManager : MonoBehaviour
                 HackDoor(triggerName, 15f);
                 SpawnBoss(1);
                 break;
+            case "bosshack3":
+                HackDoor(triggerName, 15f);
+                currentLevel = 2;
+                SpawnBoss(2);
+                Helicopter.SetActive(true);
+                break;
             case "opendoor":
                 OpenDoor(triggerName);
+                break;
+            case "escape":
+                Destroy(GameObject.FindGameObjectWithTag("Player"));
+                Helicopter.GetComponent<HelicopterAnim>().animPlaying = true;
                 break;
             default:
                 Debug.Log("Unknown Trigger event name '"+triggerName+"'");

@@ -10,8 +10,8 @@ public class Door : MonoBehaviour
     public int TriggerLevel;
 
     // Door local rotation
-    public Quaternion rotationClose;
-    public Quaternion rotationOpen;
+    public Vector3 rotationClose;
+    public Vector3 rotationOpen;
 
     void Start()
     {
@@ -28,24 +28,24 @@ public class Door : MonoBehaviour
 
         if (isOpen)
         {
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 200; i++)
             {
                 Quaternion rot = Quaternion.Lerp(transform.localRotation, 
-                    rotationClose, 
-                    Time.deltaTime * 30);
+                    Quaternion.Euler(rotationClose.x, rotationClose.y, rotationClose.z), 
+                    Time.deltaTime * 2f);
                 transform.localRotation = rot;
-                yield return new WaitForSeconds(Time.deltaTime);
+                yield return new WaitForEndOfFrame();
             }
             isOpen = false;
         } else if (!isOpen)
         {   
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 200; i++)
             {
-                Quaternion rot = Quaternion.Lerp(transform.localRotation, 
-                    rotationOpen, 
-                    Time.deltaTime * 30);
+                Quaternion rot = Quaternion.Lerp(transform.localRotation,
+                    Quaternion.Euler(rotationOpen.x, rotationOpen.y, rotationOpen.z), 
+                    Time.deltaTime * 2f);
                 transform.localRotation = rot;
-                yield return new WaitForSeconds(Time.deltaTime);
+                yield return new WaitForEndOfFrame();
             } 
             isOpen = true;
         }
@@ -55,41 +55,23 @@ public class Door : MonoBehaviour
     {
         if (isOpen)
         {
-<<<<<<< HEAD
-<<<<<<< Updated upstream
             for (int i = 0; i < 200; i++)
-=======
-            print("closing");
-            for (int i = 0; i < 100; i++)
->>>>>>> Stashed changes
-=======
-            for (int i = 0; i < 100; i++)
->>>>>>> parent of ffc56e6 (added more levels to game loop)
             {
-                Quaternion rot = Quaternion.Lerp(transform.localRotation, 
-                    rotationClose, 
-                    Time.deltaTime * 30);
+                Quaternion rot = Quaternion.Lerp(transform.localRotation,
+                    Quaternion.Euler(rotationClose.x, rotationClose.y, rotationClose.z), 
+                    Time.deltaTime * 2f);
                 transform.localRotation = rot;
-                yield return new WaitForSeconds(Time.deltaTime);
+                yield return new WaitForEndOfFrame();
             }
             isOpen = false;
         } else if (!isOpen){
-<<<<<<< HEAD
-<<<<<<< Updated upstream
             for (int i = 0; i < 200; i++)
-=======
-            print("opening");
-            for (int i = 0; i < 100; i++)
->>>>>>> Stashed changes
-=======
-            for (int i = 0; i < 100; i++)
->>>>>>> parent of ffc56e6 (added more levels to game loop)
             {
-                Quaternion rot = Quaternion.Lerp(transform.localRotation, 
-                    rotationOpen, 
-                    Time.deltaTime * 30);
+                Quaternion rot = Quaternion.Lerp(transform.localRotation,
+                    Quaternion.Euler(rotationOpen.x, rotationOpen.y, rotationOpen.z), 
+                    Time.deltaTime * 2f);
                 transform.localRotation = rot;
-                yield return new WaitForSeconds(Time.deltaTime);
+                yield return new WaitForEndOfFrame();
             } 
             isOpen = true;
         }

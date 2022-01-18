@@ -187,7 +187,15 @@ public class ClientWeaponController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.V)) {
             if (interactTrigger) {
                 interactTrigger.GetComponent<TriggerEventHandler>().Activate();
+                
+
+
+                if (interactTrigger.GetComponent<AudioSource>() != null) {
+                    interactTrigger.GetComponent<AudioSource>().Play();
+                }
+
                 interactTrigger = null;
+
             } else if (gunDrop) {
                 GameObject equippingGun = gunDrop;
 

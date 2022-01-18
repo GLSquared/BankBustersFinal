@@ -1,6 +1,7 @@
 using InfimaGames.LowPolyShooterPack;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +14,8 @@ public class ClientController : MonoBehaviour
     public GameObject HealthBar;
     GameObject HackingBar;
     GameObject DeathScreen;
+    GameObject BossHealthPanel;
+    GameObject ObjectivesPanel;
 
     public bool Dead;
 
@@ -30,6 +33,11 @@ public class ClientController : MonoBehaviour
         DeathScreen = HackingBar.transform.parent.Find("DeathScreen").gameObject;
         DeathScreen.SetActive(false);
 
+        BossHealthPanel = HackingBar.transform.parent.Find("BossHealth").gameObject;
+        BossHealthPanel.SetActive(false);
+
+        ObjectivesPanel = HackingBar.transform.parent.Find("ObjectivePanel").gameObject;
+
         cwc = gameObject.GetComponent<ClientWeaponController>();
     }
 
@@ -38,6 +46,51 @@ public class ClientController : MonoBehaviour
     {
         //;
         HealthBarUpdate();
+
+        GameObject Boss = null;
+
+        foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy")) {
+            if (enemy.name.Contains("Boss")) {
+                Boss = enemy;
+            }
+        }
+
+        if (Boss != null) {
+            BossHealthPanel.SetActive(true);
+            float bHealth = Boss.GetComponent<Enemy>().health;
+            float mbHealth = Boss.GetComponent<Enemy>().MaxHealth;
+            BossHealthPanel.transform.Find("Bar").transform.localScale = new Vector3(bHealth / mbHealth, 1, 1);
+            BossHealthPanel.transform.Find("Health").GetComponent<TextMeshProUGUI>().text = bHealth + "/" + mbHealth;
+            ObjectivesPanel.transform.Find("ObjectiveText").GetComponent<TextMeshProUGUI>().text = "Fight off the security!";
+        }
+        else
+        {
+            if (GameObject.Find("Helicopter") == null) {
+                ObjectivesPanel.transform.Find("ObjectiveText").GetComponent<TextMeshProUGUI>().text = "Find and hack the console!";
+            }
+            else
+            {
+                ObjectivesPanel.transform.Find("ObjectiveText").GetComponent<TextMeshProUGUI>().text = "Escape with the helicopter!";
+            }
+            BossHealthPanel.SetActive(false);
+        }
+
+
+        //OBJECTIVES
+        Vector2 objPanelPos = new Vector2(-260, 190);
+
+        if (Input.GetKey(KeyCode.LeftControl))
+        {
+            objPanelPos = new Vector2(0, 190);
+            ObjectivesPanel.transform.Find("Hint").GetComponent<TextMeshProUGUI>().enabled = false;
+            ObjectivesPanel.transform.Find("HintB").GetComponent<TextMeshProUGUI>().enabled = false;
+        }
+        else {
+            ObjectivesPanel.transform.Find("Hint").GetComponent<TextMeshProUGUI>().enabled = true;
+            ObjectivesPanel.transform.Find("HintB").GetComponent<TextMeshProUGUI>().enabled = true;
+        }
+
+        ObjectivesPanel.GetComponent<RectTransform>().anchoredPosition = Vector2.Lerp(ObjectivesPanel.GetComponent<RectTransform>().anchoredPosition, objPanelPos, Time.deltaTime * 5f);
 
         //Reduce damage screen opacity
         HealthBar.transform.parent.parent.Find("DamageScreen").GetComponent<Image>().color = new Color(1, 1, 1, HealthBar.transform.parent.parent.Find("DamageScreen").GetComponent<Image>().color.a - (Time.deltaTime * 5));
