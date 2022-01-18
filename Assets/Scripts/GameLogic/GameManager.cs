@@ -49,8 +49,6 @@ public class GameManager : MonoBehaviour
     {
         GameObject spawn = GameObject.Find("BossSpawn"+level.ToString());
 
-        MaximumEnemySpawns += 2;
-
         GameObject newEnemy = Instantiate(Bosses[level], spawn.transform.position, Quaternion.identity);
         newEnemy.GetComponent<Enemy>().currentTarget = GameObject.Find("Player");
     }
@@ -74,7 +72,7 @@ public class GameManager : MonoBehaviour
         {
             if (door.GetComponent<Door>().TriggerLevel >= level)
             {
-                door.transform.localRotation = Quaternion.Euler(door.GetComponent<Door>().rotationClose.x, door.GetComponent<Door>().rotationClose.y, door.GetComponent<Door>().rotationClose.z);
+                door.transform.localRotation = door.GetComponent<Door>().rotationClose;
                 door.GetComponent<Door>().isOpen = false;
             }
         }     
@@ -170,9 +168,6 @@ public class GameManager : MonoBehaviour
             case "saferoom1":
                 OpenDoor(triggerName);
                 break;
-            case "saferoom2":
-                OpenDoor(triggerName);
-                break;
             case "boss_1":
                 SpawnBoss(currentLevel);
                 break;
@@ -183,11 +178,6 @@ public class GameManager : MonoBehaviour
             case "bosshack2":
                 HackDoor(triggerName, 15f);
                 SpawnBoss(1);
-                break;
-            case "bosshack3":
-                HackDoor(triggerName, 20f);
-                currentLevel = 2;
-                SpawnBoss(2);
                 break;
             case "opendoor":
                 OpenDoor(triggerName);

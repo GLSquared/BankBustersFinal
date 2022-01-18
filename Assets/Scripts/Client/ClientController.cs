@@ -54,11 +54,6 @@ public class ClientController : MonoBehaviour
         {
             UseItem(2);
         }
-
-        if (Input.GetKeyDown(KeyCode.K)) {
-            transform.position = new Vector3(-42, 4, -61);
-        }
-
         if (Input.GetKeyDown(KeyCode.C) && Dead)
         {
             GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().InvokeTriggerEvent("restartlevel");
