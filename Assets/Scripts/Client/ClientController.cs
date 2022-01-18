@@ -122,6 +122,12 @@ public class ClientController : MonoBehaviour
             SelfDestroy();
         }
 
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            GameManager gm = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
+            gm.LoadMainMenu();
+        }
+
         if (currentDonut != null)
         {
             currentDonut.transform.localPosition = new Vector3(-.15f, -.1f + Mathf.Sin(Time.time * 30) / 100f, .15f);

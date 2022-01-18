@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {   
@@ -206,6 +207,7 @@ public class GameManager : MonoBehaviour
             case "escape":
                 Destroy(GameObject.FindGameObjectWithTag("Player"));
                 Helicopter.GetComponent<HelicopterAnim>().animPlaying = true;
+                StartCoroutine(waitForAnimation(20f));
                 break;
             default:
                 Debug.Log("Unknown Trigger event name '"+triggerName+"'");
@@ -220,5 +222,17 @@ public class GameManager : MonoBehaviour
                 break;
              */
         }
+
+    }
+
+    IEnumerator waitForAnimation(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    public void LoadMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 }
