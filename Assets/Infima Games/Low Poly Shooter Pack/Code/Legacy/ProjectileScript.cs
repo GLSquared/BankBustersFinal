@@ -224,16 +224,8 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 
 				if (hit.transform.tag == "Enemy")
 				{
-					if (gameObject.name == "P_LPSP_PROJ_RL")
-					{
-						hit.transform.gameObject.GetComponent<Enemy>().TakeDamage(500);
-					}
 
-					if (gameObject.name == "P_LPSP_PROJ_GL")
-					{
-						hit.transform.gameObject.GetComponent<Enemy>().TakeDamage(100);
-					}
-
+					hit.transform.gameObject.GetComponent<Enemy>().TakeDamage(100);
 
 				}
 			}
