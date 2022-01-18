@@ -320,7 +320,11 @@ public class Enemy : MonoBehaviour
 
     private void Fire()
     {
-        
+        if (currentTarget == null)
+        {
+            return;
+        }
+
         if (CanSeeTarget(currentTarget, EnemyLayer))
         {
              float step = TurnSpeed * Time.deltaTime;
