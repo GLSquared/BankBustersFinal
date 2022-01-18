@@ -51,7 +51,12 @@ public class Door : MonoBehaviour
     {
         if (isOpen)
         {
+<<<<<<< Updated upstream
             for (int i = 0; i < 200; i++)
+=======
+            print("closing");
+            for (int i = 0; i < 100; i++)
+>>>>>>> Stashed changes
             {
                 Quaternion rot = Quaternion.Lerp(transform.rotation,
                     Quaternion.Euler(rotationClose.x, rotationClose.y, rotationClose.z), 
@@ -61,7 +66,12 @@ public class Door : MonoBehaviour
             }
             isOpen = false;
         } else if (!isOpen){
+<<<<<<< Updated upstream
             for (int i = 0; i < 200; i++)
+=======
+            print("opening");
+            for (int i = 0; i < 100; i++)
+>>>>>>> Stashed changes
             {
                 Quaternion rot = Quaternion.Lerp(transform.rotation,
                     Quaternion.Euler(rotationOpen.x, rotationOpen.y, rotationOpen.z), 
