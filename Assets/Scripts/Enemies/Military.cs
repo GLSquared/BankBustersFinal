@@ -125,9 +125,17 @@ public class Military : MonoBehaviour
         _reloading = false;
     }
 
+    private IEnumerator Die()
+    {
+        _isDead = true;
+        animator.SetTrigger("Dead");
+        yield return new WaitForSeconds(0.6f);
+        Destroy(gameObject.transform.parent.gameObject);
+    }
+
     private void Dead()
     {
-        Destroy(gameObject.transform.parent.gameObject);
+        StartCoroutine(Die());
     }
 
     private void Shooting()

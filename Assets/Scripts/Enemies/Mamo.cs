@@ -29,7 +29,7 @@ public class Mamo : MonoBehaviour
     private bool _targetting = false;
     private bool _shooting = false;
     private bool _reloading = false;
-    private bool _isDead = false;
+    // private bool _isDead = false;
     private float _walkspeed = 0;
 
     // Weapon
@@ -144,7 +144,6 @@ public class Mamo : MonoBehaviour
 
         gameObject.AddComponent<Rigidbody>();
         gameObject.AddComponent<GrenadeScript>();
-
 
 		//Raycast downwards to check ground
 		RaycastHit checkGround;

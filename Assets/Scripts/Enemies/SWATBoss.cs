@@ -127,10 +127,18 @@ public class SWATBoss : MonoBehaviour
         _reloading = false;
     }
 
+    private IEnumerator Die()
+    {
+        _isDead = true;
+        animator.SetTrigger("Dead");
+        yield return new WaitForSeconds(0.6f);
+        Destroy(gameObject.transform.parent.gameObject);
+    }
+
     private void Dead()
     {
         GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().currentLevel = 2;
-        Destroy(gameObject.transform.parent.gameObject);
+        StartCoroutine(Die());
     }
 
     private void Shooting()

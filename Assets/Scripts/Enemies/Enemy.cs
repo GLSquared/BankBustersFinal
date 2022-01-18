@@ -312,6 +312,8 @@ public class Enemy : MonoBehaviour
 
     public void Dead()
     {
+        GetComponent<Collider>().enabled = false;
+        GetComponent<NavMeshAgent>().enabled = false;
         DropWeapon();
         dead = true;
     }
