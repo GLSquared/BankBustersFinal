@@ -177,8 +177,6 @@ public class ClientController : MonoBehaviour
             yield return new WaitForSeconds(Time.deltaTime);
         }
 
-        yield return new WaitForSeconds(1);
-
         Destroy(m);
     }
 
