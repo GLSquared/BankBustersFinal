@@ -32,6 +32,14 @@ public class Spawner : MonoBehaviour
         GameObject[] levelSpawners = SpawnerLevels[level].ToArray();
         GameObject randomSpawner = levelSpawners[Random.Range(0, levelSpawners.Length)];
 
+        if (randomSpawner.GetComponent<LockedSpawns>())
+        {
+            if (!randomSpawner.GetComponent<LockedSpawns>().canSpawn)
+            {
+                return;
+            }
+        }
+
         GameObject newEnemy = Instantiate(EnemyPrefabs[level], randomSpawner.transform.position, Quaternion.identity);
         // newEnemy.transform.position = randomSpawner.transform.position;
         newEnemy.GetComponent<Enemy>().currentTarget = GameObject.Find("Player");

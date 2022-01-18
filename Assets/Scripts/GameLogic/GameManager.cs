@@ -90,6 +90,9 @@ public class GameManager : MonoBehaviour
             {
                 door.transform.localRotation = Quaternion.Euler(door.GetComponent<Door>().rotationClose.x, door.GetComponent<Door>().rotationClose.y, door.GetComponent<Door>().rotationClose.z);
                 door.GetComponent<Door>().isOpen = false;
+            } else {
+                door.transform.localRotation = Quaternion.Euler(door.GetComponent<Door>().rotationClose.x, door.GetComponent<Door>().rotationOpen.y, door.GetComponent<Door>().rotationClose.z);
+                door.GetComponent<Door>().isOpen = true;                
             }
         }     
 
