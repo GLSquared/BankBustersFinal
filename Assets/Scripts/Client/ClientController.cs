@@ -211,8 +211,11 @@ public class ClientController : MonoBehaviour
 
     public void StopHackingProgress() {
         HackingBar.SetActive(false);
-        StopCoroutine(hackCoroutine);
-        hackCoroutine = null;
+        if (hackCoroutine != null)
+        {
+            StopCoroutine(hackCoroutine);
+            hackCoroutine = null;
+        }
     }
 
     void UseItem(int itemIndex)

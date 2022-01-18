@@ -32,7 +32,7 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - BoundaryWall
   - Water
   - UI
   - Enemy
