@@ -197,7 +197,6 @@ public class GameManager : MonoBehaviour
                 break;
             case "bosshack3":
                 HackDoor(triggerName, 15f);
-                currentLevel = 2;
                 SpawnBoss(2);
                 Helicopter.SetActive(true);
                 break;
