@@ -129,6 +129,7 @@ public class SWATBoss : MonoBehaviour
 
     private void Dead()
     {
+        GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().currentLevel = 2;
         Destroy(gameObject.transform.parent.gameObject);
     }
 
