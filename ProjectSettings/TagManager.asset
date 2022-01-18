@@ -28,6 +28,7 @@ TagManager:
   - Trigger
   - SpawnBoss
   - FinalCutscene
+  - MoneyText
   layers:
   - Default
   - TransparentFX
