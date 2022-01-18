@@ -23,6 +23,11 @@ public class ClientController : MonoBehaviour
     GameObject currentDonut;
 
     ClientWeaponController cwc;
+    
+    private IEnumerator hackCoroutine;
+
+    [SerializeField]
+    GameObject MoneyEffect;
 
     // Start is called before the first frame update
     void Start()
@@ -109,6 +114,7 @@ public class ClientController : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.C) && Dead)
         {
+            StopHackingProgress();
             GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().InvokeTriggerEvent("restartlevel");
             Dead = false;
             Health = 100f;
@@ -149,8 +155,26 @@ public class ClientController : MonoBehaviour
         }
     }
 
-    public void ReduceHealth(float damage)
+    private IEnumerator NoMyMoney()
     {
+        GameObject m = Instantiate(MoneyEffect, transform.position + new Vector3(0, 2, 0), Quaternion.identity);
+
+        float maxFrames = Mathf.Floor(15 / Time.deltaTime);
+
+        for (int i = 0; i < maxFrames; i++) {
+            m.transform.localPosition -= new Vector3(0, Time.deltaTime, 0);
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
+
+        yield return new WaitForSeconds(1);
+
+        Destroy(m);
+    }
+
+    public void ReduceHealth(float damage)
+    {   
+        StartCoroutine(NoMyMoney());
+
         Health = Mathf.Max(0, Health - damage);
         HealthBar.transform.parent.parent.Find("DamageScreen").GetComponent<Image>().color = new Color(1, 1, 1, 1);
 
@@ -178,10 +202,17 @@ public class ClientController : MonoBehaviour
         mov.speedWalking = 5f;
         mov.speedRunning = 9f;
     }
-
+    
     public void ShowHackingProgress(float progressTime) {
         HackingBar.SetActive(true);
-        StartCoroutine(IncreaseBar(progressTime));
+        hackCoroutine = IncreaseBar(progressTime);
+        StartCoroutine(hackCoroutine);
+    }
+
+    public void StopHackingProgress() {
+        HackingBar.SetActive(false);
+        StopCoroutine(hackCoroutine);
+        hackCoroutine = null;
     }
 
     void UseItem(int itemIndex)
@@ -209,7 +240,6 @@ public class ClientController : MonoBehaviour
 
             invItems.RemoveAt(itemIndex);
             UpdateHotbars();
-
         }
     }
 
@@ -239,8 +269,6 @@ public class ClientController : MonoBehaviour
         HealthBar.GetComponent<RectTransform>().sizeDelta = new Vector2(26.18f, HealthBarHeight);
         HealthBar.GetComponent<RectTransform>().localPosition = new Vector3(0, (HealthBarHeight / 2f) - (MaxHealthBarHeight / 2), 0);
         HealthBar.GetComponent<Image>().color = Color.Lerp(new Color(0, 1, 0, .4f), new Color(1, 0, 0, .4f), 1 - (Health / 100f));
-
-
     }
 
     void UpdateHotbars()

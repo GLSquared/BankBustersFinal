@@ -34,6 +34,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject player;
 
+    private IEnumerator hackCoroutine;
+
     void Start()
     {
         Helicopter.SetActive(false);
@@ -74,6 +76,13 @@ public class GameManager : MonoBehaviour
                 objective.GetComponent<BoxCollider>().enabled = true;
         }
 
+        // Stop hacking!
+        if (hackCoroutine != null)
+        {
+            StopCoroutine(hackCoroutine);
+            hackCoroutine = null;
+        }
+
         // Reset doors
         foreach (GameObject door in GameObject.FindGameObjectsWithTag("Door"))
         {
@@ -88,9 +97,9 @@ public class GameManager : MonoBehaviour
         foreach(GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
         {
             //IF enemy is not a boss
-            if (!enemy.name.Contains("Boss")) {
-                Destroy(enemy);
-            }
+            // if (!enemy.name.Contains("Boss")) {
+            Destroy(enemy);
+            // }
         }
 
         print(player);
@@ -98,7 +107,7 @@ public class GameManager : MonoBehaviour
         // Respawn Player
         player.transform.position = FindPlayerRespawnLocation(level);
     }
-
+    
     // Hacking doors
     private void HackDoor(string trigger, float timer)
     {
@@ -107,7 +116,10 @@ public class GameManager : MonoBehaviour
 
         GameObject door = FindDoorOfTrigger(trigger);
         if (door)
-            StartCoroutine(door.GetComponent<Door>().HackDoor(timer));
+        {
+            hackCoroutine = door.GetComponent<Door>().HackDoor(timer);
+            StartCoroutine(hackCoroutine);
+        }
     }
 
     // Open doors
