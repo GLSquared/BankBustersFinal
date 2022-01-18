@@ -121,6 +121,11 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 					//Reduce explosion timer on gas tank object to make it explode faster
 					hit.gameObject.GetComponent<GasTankScript>().explosionTimer = 0.05f;
 				}
+
+				if (hit.transform.tag == "Enemy")
+				{
+					hit.transform.gameObject.GetComponent<Enemy>().TakeDamage(100);
+				}
 			}
 
 			//Destroy the grenade object on explosion
