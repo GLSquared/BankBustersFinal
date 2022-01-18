@@ -56,7 +56,8 @@ public class GameManager : MonoBehaviour
     {
         GameObject spawn = GameObject.Find("BossSpawn"+level.ToString());
 
-        MaximumEnemySpawns += 2;
+        if (MaximumEnemySpawns < 12)
+            MaximumEnemySpawns += 2;
 
         GameObject newEnemy = Instantiate(Bosses[level], spawn.transform.position, Quaternion.identity);
         newEnemy.GetComponent<Enemy>().currentTarget = GameObject.Find("Player");
