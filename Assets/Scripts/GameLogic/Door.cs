@@ -10,8 +10,8 @@ public class Door : MonoBehaviour
     public int TriggerLevel;
 
     // Door local rotation
-    public Quaternion rotationClose;
-    public Quaternion rotationOpen;
+    public Vector3 rotationClose;
+    public Vector3 rotationOpen;
 
     void Start()
     {
@@ -20,32 +20,28 @@ public class Door : MonoBehaviour
 
     public IEnumerator HackDoor(float timer)
     {
-        float maxFrames = Mathf.Floor(timer / Time.deltaTime);
-
-        for (int i = 0; i < maxFrames; i++) {
-            yield return new WaitForSeconds(Time.deltaTime);
-        }
+        yield return new WaitForSeconds(timer);
 
         if (isOpen)
         {
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 200; i++)
             {
                 Quaternion rot = Quaternion.Lerp(transform.localRotation, 
-                    rotationClose, 
-                    Time.deltaTime * 30);
+                    Quaternion.Euler(rotationClose.x, rotationClose.y, rotationClose.z), 
+                    Time.deltaTime * 2f);
                 transform.localRotation = rot;
-                yield return new WaitForSeconds(Time.deltaTime);
+                yield return new WaitForEndOfFrame();
             }
             isOpen = false;
         } else if (!isOpen)
         {   
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 200; i++)
             {
-                Quaternion rot = Quaternion.Lerp(transform.localRotation, 
-                    rotationOpen, 
-                    Time.deltaTime * 30);
+                Quaternion rot = Quaternion.Lerp(transform.localRotation,
+                    Quaternion.Euler(rotationOpen.x, rotationOpen.y, rotationOpen.z), 
+                    Time.deltaTime * 2f);
                 transform.localRotation = rot;
-                yield return new WaitForSeconds(Time.deltaTime);
+                yield return new WaitForEndOfFrame();
             } 
             isOpen = true;
         }
@@ -55,23 +51,23 @@ public class Door : MonoBehaviour
     {
         if (isOpen)
         {
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 200; i++)
             {
-                Quaternion rot = Quaternion.Lerp(transform.localRotation, 
-                    rotationClose, 
-                    Time.deltaTime * 30);
-                transform.localRotation = rot;
-                yield return new WaitForSeconds(Time.deltaTime);
+                Quaternion rot = Quaternion.Lerp(transform.rotation,
+                    Quaternion.Euler(rotationClose.x, rotationClose.y, rotationClose.z), 
+                    Time.deltaTime * 2f);
+                transform.rotation = rot;
+                yield return new WaitForEndOfFrame();
             }
             isOpen = false;
         } else if (!isOpen){
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 200; i++)
             {
-                Quaternion rot = Quaternion.Lerp(transform.localRotation, 
-                    rotationOpen, 
-                    Time.deltaTime * 30);
-                transform.localRotation = rot;
-                yield return new WaitForSeconds(Time.deltaTime);
+                Quaternion rot = Quaternion.Lerp(transform.rotation,
+                    Quaternion.Euler(rotationOpen.x, rotationOpen.y, rotationOpen.z), 
+                    Time.deltaTime * 2f);
+                transform.rotation = rot;
+                yield return new WaitForEndOfFrame();
             } 
             isOpen = true;
         }
