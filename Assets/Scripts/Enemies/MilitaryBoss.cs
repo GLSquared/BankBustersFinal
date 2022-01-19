@@ -114,10 +114,13 @@ public class MilitaryBoss : MonoBehaviour
 
     private IEnumerator Die()
     {
-        _isDead = true;
-        animator.SetTrigger("Dead");
-        yield return new WaitForSeconds(0.6f);
-        Destroy(gameObject.transform.parent.gameObject);
+        if (!_isDead)
+        {
+            _isDead = true;
+            animator.SetTrigger("Dead");
+            yield return new WaitForSeconds(0.6f);
+            Destroy(gameObject.transform.parent.gameObject);
+        }
     }
 
     private void Dead()
