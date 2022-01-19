@@ -32,8 +32,8 @@ public class Enemy : MonoBehaviour
     public State currentState = State.Idle;
 
     // General Enemy properties
-    [Range(1, 5000)] public float MaxHealth = 100f;
-    [Range(1, 5000)] public float health = 100f;
+    [Range(0, 5000)] public float MaxHealth = 100f;
+    [Range(0, 5000)] public float health = 100f;
 
     // Enemy sight
     [SerializeField] public GameObject viewAt;
